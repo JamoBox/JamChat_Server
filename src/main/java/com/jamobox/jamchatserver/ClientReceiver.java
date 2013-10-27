@@ -39,6 +39,9 @@ public class ClientReceiver implements Runnable {
     public void run() {
         try {
             BufferedReader in = client.getClientReader();
+            while (in.readLine() != null) {
+                //TODO: Handle client input
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
