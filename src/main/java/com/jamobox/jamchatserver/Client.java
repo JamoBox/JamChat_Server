@@ -3,8 +3,6 @@ package main.java.com.jamobox.jamchatserver;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -25,25 +23,25 @@ import java.net.Socket;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-public class ClientListener {
-
-    private int port;
-    private ServerSocket serverSocket;
-
-    public ClientListener(int port) throws IOException {
-        this.port = port;
-        serverSocket = new ServerSocket(port);
-    }
+public abstract class Client extends Socket {
 
     /**
-     * Attempts to open a socket and listen on the ChatListener port.
-     *
-     * @return clientSocket The client connecting
+     * @return The client's unique username
+     */
+    public abstract String getUsername();
+
+    /**
+     * @return The client's ip address
+     */
+    public abstract String getAddress();
+
+    /**
+     * Get the client's input stream.
+     * @return BufferedReader object of client input stream.
      * @throws IOException
      */
-    public Socket openSocket() throws IOException {
-        Socket clientSocket = serverSocket.accept();
-        return clientSocket;
+    public BufferedReader getClientReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(this.getInputStream()));
     }
 
 }

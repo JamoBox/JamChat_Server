@@ -24,20 +24,42 @@ import java.util.logging.Logger;
 
 public class JamChatServer {
 
-    protected static Logger log;
+    private static Logger log;
+    private static ClientListener listener;
 
-    public static void main(String[] args) {
-
+    private static boolean initialize() {
         log = Logger.getLogger("com.jamobox.jamchatserver");
-
-        ClientListener clientListener = new ClientListener(23239);
         try {
-            Socket client = clientListener.openSocket();
+            listener = new ClientListener(Defaults.DEF_PORT);
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            log.warning("Could not open socket!");
+            return false;
         }
     }
 
+    public static void main(String[] args) {
+
+        if (!(initialize())) {
+            log.severe("Could not initialize daemon! See stack trace for details!");
+            return;
+        }
+
+        while (true) {
+            try {
+                Client client = (Client) listener.openSocket();
+                new Thread(new ClientReceiver(client)).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+
+    public static Logger getLogger() {
+        return log;
+    }
 }
 
