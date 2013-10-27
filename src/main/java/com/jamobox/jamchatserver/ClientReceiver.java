@@ -43,12 +43,6 @@ public class ClientReceiver implements Runnable {
             e.printStackTrace();
         }
     }
-/*        ClientListener clientListener = new ClientListener(23239);
-        try {
-            Socket client = clientListener.openSocket();
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.warning("Could not open socket!");
-        }*/
+
 }
 
