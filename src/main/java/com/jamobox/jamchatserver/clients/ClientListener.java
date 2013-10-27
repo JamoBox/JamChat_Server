@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver;
+package main.java.com.jamobox.jamchatserver.clients;
 
 import java.io.BufferedReader;
 import java.io.IOException;

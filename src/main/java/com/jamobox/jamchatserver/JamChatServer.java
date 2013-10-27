@@ -1,7 +1,10 @@
 package main.java.com.jamobox.jamchatserver;
 
+import main.java.com.jamobox.jamchatserver.clients.Client;
+import main.java.com.jamobox.jamchatserver.clients.ClientListener;
+import main.java.com.jamobox.jamchatserver.clients.ClientReceiver;
+
 import java.io.IOException;
-import java.net.Socket;
 import java.util.logging.Logger;
 
 /**
@@ -45,6 +48,9 @@ public class JamChatServer {
             return;
         }
 
+        /* Create a new thread for each client that connects.
+         * TODO: Move this to its own method once expanded
+         */
         while (true) {
             try {
                 Client client = (Client) listener.openSocket();

@@ -1,9 +1,4 @@
-package main.java.com.jamobox.jamchatserver;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
+package main.java.com.jamobox.jamchatserver.clients;
 
 /**
  * JamChat_Server
@@ -23,25 +18,32 @@ import java.net.Socket;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-public abstract class Client extends Socket {
+import java.io.BufferedReader;
+import java.io.IOException;
 
-    /**
-     * @return The client's unique username
-     */
-    public abstract String getUsername();
+/**
+ * Assigns connecting clients usernames and adds them to a client array.
+ *
+ * @author Pete Wicken
+ */
+public class ClientReceiver implements Runnable {
 
-    /**
-     * @return The client's ip address
-     */
-    public abstract String getAddress();
+    private Client client;
 
-    /**
-     * Get the client's input stream.
-     * @return BufferedReader object of client input stream.
-     * @throws IOException
-     */
-    public BufferedReader getClientReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(this.getInputStream()));
+    public ClientReceiver(Client client) {
+        this.client = client;
+    }
+
+    @Override
+    public void run() {
+        try {
+            BufferedReader in = client.getClientReader();
+            while (in.readLine() != null) {
+                //TODO: Handle client input
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
