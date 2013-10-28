@@ -54,6 +54,14 @@ public class InputHandler {
             throw new NullPointerException();
     }
 
+    /**
+     * Reject a client's connection for a given reason. This should mainly be used by
+     * authentication methods and any other methods that are called when a user first connects,
+     * however this may also be used to cleanly disconnect the client, by the client's own request.
+     *
+     * @param client The client to reject.
+     * @param reason The reason for the disconnection.
+     */
     private static void rejectClient(Client client, String reason) {
         //TODO: Call a method from client output stream class to send an error message.
         client.disconnect();

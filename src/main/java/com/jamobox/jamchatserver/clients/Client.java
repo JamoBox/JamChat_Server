@@ -26,18 +26,29 @@ import java.net.Socket;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
+/**
+ * This class defines what a client is. ALL clients MUST be an instance of this
+ * class, and any possible different client types (if this is ever implemented)
+ * should also extend this class.
+ *
+ * @author Pete Wicken
+ */
 public abstract class Client extends Socket {
 
     /**
-     * @return The client's unique username
+     * @return The client's unique username.
      */
     public abstract String getUsername();
 
     /**
-     * @return The client's ip address
+     * @return The client's ip address.
      */
     public abstract String getAddress();
 
+    /**
+     * Set the username of the client.
+     * @param username The username to use.
+     */
     public abstract void setUsername(String username);
 
     /**
@@ -49,6 +60,9 @@ public abstract class Client extends Socket {
         return new BufferedReader(new InputStreamReader(this.getInputStream()));
     }
 
+    /**
+     * Attempt to disconnect the client from the server.
+     */
     public void disconnect() {
         try {
             this.close();

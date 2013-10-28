@@ -31,6 +31,12 @@ public class JamChatServer {
     private static Logger log;
     private static ClientListener listener;
 
+    /**
+     * Initialize the server with the essential resources. If initialization fails
+     * it is heavily recommended that the daemon closes to prevent further errors.
+     *
+     * @return true if successful, false if not.
+     */
     private static boolean initialize() {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
@@ -63,6 +69,10 @@ public class JamChatServer {
 
     }
 
+    /**
+     * Get the server logger.
+     * @return Logger com.jamobox.jamchatserver
+     */
     public static Logger getLogger() {
         return log;
     }
