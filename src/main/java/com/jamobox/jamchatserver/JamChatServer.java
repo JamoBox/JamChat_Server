@@ -1,12 +1,5 @@
 package main.java.com.jamobox.jamchatserver;
 
-import main.java.com.jamobox.jamchatserver.clients.Client;
-import main.java.com.jamobox.jamchatserver.clients.ClientListener;
-import main.java.com.jamobox.jamchatserver.clients.ClientReceiver;
-
-import java.io.IOException;
-import java.util.logging.Logger;
-
 /**
  * JamChat_Server
  * Copyright (C) 2013 Pete Wicken
@@ -24,6 +17,14 @@ import java.util.logging.Logger;
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
+
+import main.java.com.jamobox.jamchatserver.clients.Client;
+import main.java.com.jamobox.jamchatserver.clients.ClientListener;
+import main.java.com.jamobox.jamchatserver.clients.ClientReceiver;
+import java.io.IOException;
+import java.util.logging.Logger;
+
+
 
 public class JamChatServer {
 
@@ -61,8 +62,6 @@ public class JamChatServer {
         }
 
     }
-
-
 
     public static Logger getLogger() {
         return log;

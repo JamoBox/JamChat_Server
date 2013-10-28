@@ -18,8 +18,6 @@ package main.java.com.jamobox.jamchatserver.clients;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-import main.java.com.jamobox.jamchatserver.clients.ClientCodes;
-
 /**
  * Handles client input
  *
