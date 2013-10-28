@@ -26,8 +26,8 @@ package main.java.com.jamobox.jamchatserver.clients;
  */
 public abstract interface ClientCodes {
 
-    public static final String SET_USERNAME = "100";
-    public static final String DO_COMMAND = "101";
+    public static final String SET_USERNAME = "username";
+    public static final String DO_COMMAND = "command";
 
 }
 
