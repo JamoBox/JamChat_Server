@@ -27,6 +27,7 @@ public class InputHandler {
 
     /**
      * Interprets the input and sorts by prefix code.
+     *TODO: Clean this up!
      *
      * @param args The input to interpret
      * @throws NullPointerException
@@ -34,8 +35,8 @@ public class InputHandler {
     public static void interpret(Client sender, String[] args) throws NullPointerException {
         if (args != null) {
             String prefix = args[0];
+            switch (prefix.toLowerCase()) {
 
-            switch (prefix) {
                 case ClientCodes.SET_USERNAME:
                     if (args.length >= 2)
                         if (ClientList.getList().containsKey(args[1]))
@@ -44,11 +45,12 @@ public class InputHandler {
                             ClientList.add(args[1], sender);
                     else
                         rejectClient(sender, "Your client did not send the correct amount of arguments!");
-                break;
-
-                case ClientCodes.DO_COMMAND:
-                    //TODO implement this and other codes
                     break;
+
+                case ClientCodes.PING:
+                    sender.sendMessage("PONG");
+                    break;
+
             }
         } else
             throw new NullPointerException();
@@ -63,7 +65,7 @@ public class InputHandler {
      * @param reason The reason for the disconnection.
      */
     private static void rejectClient(Client client, String reason) {
-        //TODO: Call a method from client output stream class to send an error message.
+        client.sendMessage(reason);
         client.disconnect();
     }
 

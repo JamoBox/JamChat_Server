@@ -20,14 +20,14 @@ package main.java.com.jamobox.jamchatserver.clients;
 
 /**
  * Client codes used to determine what the client input is attempting to do.
- * TODO: Make this cleaner
+ * XXX: These must all be kept lowercase.
  *
  * @author Pete Wicken
  */
 public abstract interface ClientCodes {
 
     public static final String SET_USERNAME = "username";
-    public static final String DO_COMMAND = "command";
+    public static final String PING = "ping";
 
 }
 

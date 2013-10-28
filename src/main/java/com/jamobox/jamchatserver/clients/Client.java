@@ -6,6 +6,7 @@ import main.java.com.jamobox.jamchatserver.LogMessages;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -58,6 +59,21 @@ public abstract class Client extends Socket {
      */
     public BufferedReader getClientReader() throws IOException {
         return new BufferedReader(new InputStreamReader(this.getInputStream()));
+    }
+
+    public PrintWriter getClientWriter() throws IOException {
+        return new PrintWriter(this.getOutputStream());
+    }
+
+    public void sendMessage(String s) {
+        try {
+            PrintWriter out = getClientWriter();
+            out.write(s);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JamChatServer.getLogger().severe(LogMessages.ERR_SENDMSG);
+        }
     }
 
     /**
