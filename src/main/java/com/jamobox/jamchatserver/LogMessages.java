@@ -18,13 +18,13 @@ package main.java.com.jamobox.jamchatserver;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-/**
- * Declares the default constants for the project
- *
- * @author Pete Wicken
- */
-public abstract interface Defaults {
+public abstract interface LogMessages {
 
-    public static final int DEF_PORT = 23239;
+    public static final String ERR_INIT = "Could not initialize daemon! See stack trace for details!";
+
+    /**
+     * A client username should be appended to this.
+     */
+    public static final String ERR_CLIENT_DIS = "Could not disconnect the client ";
 
 }

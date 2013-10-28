@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver;
+package main.java.com.jamobox.jamchatserver.exceptions;
 
 /**
  * JamChat_Server
@@ -19,12 +19,19 @@ package main.java.com.jamobox.jamchatserver;
  */
 
 /**
- * Declares the default constants for the project
- *
  * @author Pete Wicken
  */
-public abstract interface Defaults {
+public class DuplicateClientException extends Exception {
 
-    public static final int DEF_PORT = 23239;
+    /**
+     * Thrown when a client tries connecting using an existing username,
+     * or if the same client tries connecting more than once in a session.
+     *
+     * @param s The exception message
+     */
+    public DuplicateClientException(String s) {
+
+    }
 
 }
+

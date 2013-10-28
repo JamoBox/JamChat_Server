@@ -1,11 +1,5 @@
 package main.java.com.jamobox.jamchatserver.clients;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 /**
  * JamChat_Server
@@ -25,6 +19,15 @@ import java.net.Socket;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/**
+ * Handles client connections
+ *
+ * @author Pete Wicken
+ */
 public class ClientListener {
 
     private int port;

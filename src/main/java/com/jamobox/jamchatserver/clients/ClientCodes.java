@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver;
+package main.java.com.jamobox.jamchatserver.clients;
 
 /**
  * JamChat_Server
@@ -19,12 +19,15 @@ package main.java.com.jamobox.jamchatserver;
  */
 
 /**
- * Declares the default constants for the project
+ * Client codes used to determine what the client input is attempting to do.
+ * TODO: Make this cleaner
  *
  * @author Pete Wicken
  */
-public abstract interface Defaults {
+public abstract interface ClientCodes {
 
-    public static final int DEF_PORT = 23239;
+    public static final String SET_USERNAME = "100";
+    public static final String DO_COMMAND = "101";
 
 }
+

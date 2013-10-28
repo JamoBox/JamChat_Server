@@ -1,5 +1,8 @@
 package main.java.com.jamobox.jamchatserver.clients;
 
+import main.java.com.jamobox.jamchatserver.JamChatServer;
+import main.java.com.jamobox.jamchatserver.LogMessages;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,6 +38,8 @@ public abstract class Client extends Socket {
      */
     public abstract String getAddress();
 
+    public abstract void setUsername(String username);
+
     /**
      * Get the client's input stream.
      * @return BufferedReader object of client input stream.
@@ -42,6 +47,15 @@ public abstract class Client extends Socket {
      */
     public BufferedReader getClientReader() throws IOException {
         return new BufferedReader(new InputStreamReader(this.getInputStream()));
+    }
+
+    public void disconnect() {
+        try {
+            this.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JamChatServer.getLogger().severe(LogMessages.ERR_CLIENT_DIS+getUsername());
+        }
     }
 
 }

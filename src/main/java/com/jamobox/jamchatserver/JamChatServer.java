@@ -44,7 +44,7 @@ public class JamChatServer {
     public static void main(String[] args) {
 
         if (!(initialize())) {
-            log.severe("Could not initialize daemon! See stack trace for details!");
+            log.severe(LogMessages.ERR_INIT);
             return;
         }
 
