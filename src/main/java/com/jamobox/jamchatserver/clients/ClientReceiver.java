@@ -22,7 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Assigns connecting clients usernames and adds them to a client array.
+ * Handles client input and calls the interpreter.
  *
  * @author Pete Wicken
  */
@@ -34,7 +34,6 @@ public class ClientReceiver implements Runnable {
         this.client = client;
     }
 
-    @Override
     public void run() {
         try {
             BufferedReader in = client.getClientReader();
