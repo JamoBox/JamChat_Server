@@ -60,7 +60,7 @@ public class JamChatServer {
          */
         while (true) {
             try {
-                Client client = (Client) listener.openSocket();
+                Client client = new Client(listener.openSocket());
                 new Thread(new ClientReceiver(client)).start();
             } catch (IOException e) {
                 e.printStackTrace();

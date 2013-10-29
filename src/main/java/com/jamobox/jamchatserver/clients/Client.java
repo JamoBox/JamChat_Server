@@ -34,23 +34,38 @@ import java.net.Socket;
  *
  * @author Pete Wicken
  */
-public abstract class Client extends Socket {
+public class Client {
+
+    private Socket socket;
+    private String username;
+    private String address;
+
+
+    public Client(Socket socket) {
+        this.socket = socket;
+    }
 
     /**
      * @return The client's unique username.
      */
-    public abstract String getUsername();
+    public String getUsername() {
+        return username;
+    }
 
     /**
      * @return The client's ip address.
      */
-    public abstract String getAddress();
+    public String getAddress() {
+        return address;
+    }
 
     /**
      * Set the username of the client.
      * @param username The username to use.
      */
-    public abstract void setUsername(String username);
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     /**
      * Get the client's input stream.
@@ -58,11 +73,11 @@ public abstract class Client extends Socket {
      * @throws IOException
      */
     public BufferedReader getClientReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(this.getInputStream()));
+        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
     public PrintWriter getClientWriter() throws IOException {
-        return new PrintWriter(this.getOutputStream());
+        return new PrintWriter(socket.getOutputStream());
     }
 
     public void sendMessage(String s) {
@@ -81,7 +96,7 @@ public abstract class Client extends Socket {
      */
     public void disconnect() {
         try {
-            this.close();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
             JamChatServer.getLogger().severe(LogMessages.ERR_CLIENT_DIS+getUsername());
