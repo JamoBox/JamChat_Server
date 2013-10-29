@@ -2,7 +2,7 @@
 <project name="jamchat_server" default="all">
   
   
-  <property file="jamchat_server.properties"/>
+  <property file="build.properties"/>
 
   <property name="skip.tests" value="true"/>
 
