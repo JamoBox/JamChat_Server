@@ -35,7 +35,7 @@ public class InputHandler {
     public static void interpret(Client sender, String[] args) throws NullPointerException {
         if (args != null) {
             String prefix = args[0];
-            switch (prefix.toLowerCase()) {
+            switch (prefix.toUpperCase()) {
 
                 case ClientCodes.SET_USERNAME:
                     if (args.length >= 2)
