@@ -52,7 +52,7 @@ public class JamChatServer {
 
         if (!(initialize())) {
             log.severe(LogMessages.ERR_INIT);
-            return;
+            System.exit(-1);
         }
 
         /* Create a new thread for each client that connects.
