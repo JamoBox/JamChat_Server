@@ -21,13 +21,14 @@ package main.java.com.jamobox.jamchatserver.clients;
 import java.util.HashMap;
 
 /**
- * Manages list of connected clients
+ * Manages list of connected clients and contains methods
+ * for manipulating the list and obtaining/adding data to it.
  *
  * @author Pete Wicken
  */
 public class ClientList {
 
-    private static HashMap<String, Client> clients = new HashMap<String, Client>();
+    private static HashMap<String, Client> clients = new HashMap<>();
 
     /**
      * Add a client to the list of connected clients

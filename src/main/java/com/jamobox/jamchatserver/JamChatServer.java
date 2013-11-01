@@ -21,15 +21,21 @@ package main.java.com.jamobox.jamchatserver;
 import main.java.com.jamobox.jamchatserver.clients.Client;
 import main.java.com.jamobox.jamchatserver.clients.ClientListener;
 import main.java.com.jamobox.jamchatserver.clients.ClientReceiver;
+
 import java.io.IOException;
 import java.util.logging.Logger;
 
 
-
+/**
+ * Main server class. Initializes and runs the server.
+ *
+ * @author Pete Wicken
+ */
 public class JamChatServer {
 
     private static Logger log;
     private static ClientListener listener;
+    private static boolean running = false;
 
     /**
      * Initialize the server with the essential resources. If initialization fails
@@ -41,6 +47,7 @@ public class JamChatServer {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
             listener = new ClientListener(Defaults.DEF_PORT);
+            running = true;
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,17 +55,33 @@ public class JamChatServer {
         }
     }
 
+    /**
+     * Main server run method.
+     *
+     * @param args The given program arguments
+     */
     public static void main(String[] args) {
 
         if (!(initialize())) {
+            running = false;
             log.severe(LogMessages.ERR_INIT);
             System.exit(-1);
         }
 
-        /* Create a new thread for each client that connects.
-         * TODO: Move this to its own method once expanded
-         */
-        while (true) {
+        acceptClients();
+    }
+
+    /**
+     * Listens for connecting clients. Once a client connects
+     * a new thread is created to handle input the input stream from
+     * the client.
+     *<p/>
+     * NOTE: This may be moved to its own thread at some point.
+     * @see Client
+     * @see ClientReceiver
+     */
+    private static void acceptClients() {
+        while (running) {
             try {
                 Client client = new Client(listener.openSocket());
                 new Thread(new ClientReceiver(client)).start();
@@ -67,7 +90,6 @@ public class JamChatServer {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
