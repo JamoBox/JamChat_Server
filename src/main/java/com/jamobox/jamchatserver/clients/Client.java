@@ -41,7 +41,13 @@ public class Client {
     private String username;
     private InetAddress address;
 
-
+    /**
+     * Creates a Client object setting the client's socket
+     * to be the one passed through the parameters. Also sets the
+     * client address to be the local address of the socket.
+     *
+     * @param socket
+     */
     public Client(Socket socket) {
         this.socket = socket;
         this.address = socket.getLocalAddress();
@@ -87,10 +93,15 @@ public class Client {
         return new PrintWriter(socket.getOutputStream());
     }
 
-    public void sendMessage(String s) {
+    /**
+     * Attempts to send the given message to the client's output stream.
+     *
+     * @param message The message to send the client.
+     */
+    public void sendMessage(String message) {
         try {
             PrintWriter out = getClientWriter();
-            out.write(s);
+            out.write(message);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,7 +110,7 @@ public class Client {
     }
 
     /**
-     * Attempt to disconnect the client from the server.
+     * Attempts to disconnect the client from the server.
      */
     public void disconnect() {
         try {
