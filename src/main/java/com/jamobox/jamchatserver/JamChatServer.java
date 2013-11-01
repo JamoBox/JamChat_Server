@@ -62,6 +62,7 @@ public class JamChatServer {
             try {
                 Client client = new Client(listener.openSocket());
                 new Thread(new ClientReceiver(client)).start();
+                log.info("Client connected: ("+client.getAddress()+")");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 
 /**
@@ -38,11 +39,12 @@ public class Client {
 
     private Socket socket;
     private String username;
-    private String address;
+    private InetAddress address;
 
 
     public Client(Socket socket) {
         this.socket = socket;
+        this.address = socket.getLocalAddress();
     }
 
     /**
@@ -55,7 +57,7 @@ public class Client {
     /**
      * @return The client's ip address.
      */
-    public String getAddress() {
+    public InetAddress getAddress() {
         return address;
     }
 
@@ -76,6 +78,11 @@ public class Client {
         return new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
+    /**
+     * Get the client's output stream.
+     * @return PrintWriter object of client output stream.
+     * @throws IOException
+     */
     public PrintWriter getClientWriter() throws IOException {
         return new PrintWriter(socket.getOutputStream());
     }

@@ -18,6 +18,8 @@ package main.java.com.jamobox.jamchatserver.clients;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
+import main.java.com.jamobox.jamchatserver.JamChatServer;
+
 /**
  * Handles client input
  *
@@ -49,8 +51,8 @@ public class InputHandler {
 
                 case ClientCodes.PING:
                     sender.sendMessage("PONG");
+                    JamChatServer.getLogger().info(sender.getUsername()+" sent a ping to the server.");
                     break;
-
             }
         } else
             throw new NullPointerException();
