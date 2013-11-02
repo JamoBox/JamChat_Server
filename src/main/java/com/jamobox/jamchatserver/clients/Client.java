@@ -46,7 +46,7 @@ public class Client {
      * to be the one passed through the parameters. Also sets the
      * client address to be the local address of the socket.
      *
-     * @param socket
+     * @param socket The socket to bind the client to.
      */
     public Client(Socket socket) {
         this.socket = socket;
@@ -122,4 +122,3 @@ public class Client {
     }
 
 }
-

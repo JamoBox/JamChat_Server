@@ -81,14 +81,12 @@ public class JamChatServer {
      * @see ClientReceiver
      */
     private static void acceptClients() {
-        while (running) {
-            try {
-                Client client = new Client(listener.openSocket());
-                new Thread(new ClientReceiver(client)).start();
-                log.info("Client connected: ("+client.getAddress()+")");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        while (running) try {
+            Client client = new Client(listener.openSocket());
+            new Thread(new ClientReceiver(client)).start();
+            log.info("Client connected: (" + client.getAddress() + ")");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

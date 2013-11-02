@@ -37,6 +37,11 @@ public class InputHandler {
     public static void interpret(Client sender, String[] args) throws NullPointerException {
         if (args != null) {
             String prefix = args[0];
+
+            if (sender.getUsername() == null)
+                if (args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME))
+                    rejectClient(sender, "Your client must set a username before sending any other requests!");
+
             switch (prefix.toUpperCase()) {
 
                 case ClientCodes.SET_USERNAME:
