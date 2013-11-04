@@ -27,9 +27,11 @@ import main.java.com.jamobox.jamchatserver.JamChatServer;
  */
 public class InputHandler {
 
+    //TODO: Clean this up!
+    //TODO: Clients not in ClientList should have restricted commands!
     /**
      * Interprets the input and sorts by prefix code.
-     *TODO: Clean this up!
+     *
      *
      * @param args The input to interpret
      * @throws NullPointerException
