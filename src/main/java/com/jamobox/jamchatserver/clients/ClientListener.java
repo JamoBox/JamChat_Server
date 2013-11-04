@@ -45,8 +45,7 @@ public class ClientListener {
      * @throws IOException
      */
     public Socket openSocket() throws IOException {
-        Socket clientSocket = serverSocket.accept();
-        return clientSocket;
+        return serverSocket.accept();
     }
 
 }
