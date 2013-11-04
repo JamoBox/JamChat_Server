@@ -115,6 +115,7 @@ public class Client {
     public void disconnect() {
         try {
             socket.close();
+            ClientList.remove(this.getUsername());
         } catch (IOException e) {
             e.printStackTrace();
             JamChatServer.getLogger().severe(LogMessages.ERR_CLIENT_DIS+getUsername());
