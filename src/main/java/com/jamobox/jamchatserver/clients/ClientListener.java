@@ -30,11 +30,9 @@ import java.net.Socket;
  */
 public class ClientListener {
 
-    private int port;
     private ServerSocket serverSocket;
 
     public ClientListener(int port) throws IOException {
-        this.port = port;
         serverSocket = new ServerSocket(port);
     }
 
