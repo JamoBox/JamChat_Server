@@ -19,8 +19,8 @@ package main.java.com.jamobox.jamchatserver;
  */
 
 import main.java.com.jamobox.jamchatserver.clients.Client;
-import main.java.com.jamobox.jamchatserver.clients.ClientListener;
-import main.java.com.jamobox.jamchatserver.clients.ClientReceiver;
+import main.java.com.jamobox.jamchatserver.clients.ClientReader;
+import main.java.com.jamobox.jamchatserver.clients.ClientSocket;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 public class JamChatServer {
 
     private static Logger log;
-    private static ClientListener listener;
+    private static ClientSocket listener;
     private static boolean running = false;
 
     /**
@@ -46,7 +46,7 @@ public class JamChatServer {
     private static boolean initialize() {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
-            listener = new ClientListener(Defaults.DEF_PORT);
+            listener = new ClientSocket(Defaults.DEF_PORT);
             running = true;
             return true;
         } catch (IOException e) {
@@ -78,12 +78,12 @@ public class JamChatServer {
      *<p/>
      * NOTE: This may be moved to its own thread at some point.
      * @see Client
-     * @see ClientReceiver
+     * @see main.java.com.jamobox.jamchatserver.clients.ClientReader
      */
     private static void acceptClients() {
         while (running) try {
             Client client = new Client(listener.openSocket());
-            new Thread(new ClientReceiver(client)).start();
+            new Thread(new ClientReader(client)).start();
             log.info("Client connected: (" + client.getAddress() + ")");
         } catch (IOException e) {
             e.printStackTrace();

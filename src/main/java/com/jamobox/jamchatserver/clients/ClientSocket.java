@@ -1,5 +1,6 @@
 package main.java.com.jamobox.jamchatserver.clients;
 
+
 /**
  * JamChat_Server
  * Copyright (C) 2013 Pete Wicken
@@ -18,32 +19,31 @@ package main.java.com.jamobox.jamchatserver.clients;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
- * Handles client input and calls the interpreter.
+ * Handles client connections
  *
  * @author Pete Wicken
  */
-public class ClientReceiver implements Runnable {
+public class ClientSocket {
 
-    private Client client;
+    private ServerSocket serverSocket;
 
-    public ClientReceiver(Client client) {
-        this.client = client;
+    public ClientSocket(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
     }
 
-    public void run() {
-        try {
-            BufferedReader in = client.getClientReader();
-            String input;
-            while ((input = in.readLine()) != null) {
-                InputHandler.interpret(client, input.split(" "));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Attempts to open a socket and listen on the ChatListener port.
+     *
+     * @return clientSocket The client connecting
+     * @throws IOException
+     */
+    public Socket openSocket() throws IOException {
+        return serverSocket.accept();
     }
 
 }
