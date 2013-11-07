@@ -81,7 +81,7 @@ public class JamChatServer {
                 case "debug":
                     //TODO implement debug feature. fall through to verbose.
                 case "verbose":
-                    //TODO: implemt verbose option to print more (detailed) log messages.
+                    //TODO: implement verbose option to print more (detailed) log messages.
                     break;
                 default:
                     printUsage();
