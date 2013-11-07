@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 public class JamChatServer {
 
     private static Logger log;
-    private static ClientSocket listener;
+    private static ClientSocket clientSocket;
     private static boolean running = false;
     private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"};
@@ -48,7 +48,7 @@ public class JamChatServer {
     private static boolean initialize() {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
-            listener = new ClientSocket(Defaults.DEF_PORT);
+            clientSocket = new ClientSocket(Defaults.DEF_PORT);
             running = true;
             return true;
         } catch (IOException e) {
@@ -104,7 +104,7 @@ public class JamChatServer {
      */
     private static void acceptClients() {
         while (running) try {
-            Client client = new Client(listener.openSocket());
+            Client client = new Client(clientSocket.openSocket());
             new Thread(new ClientReader(client)).start();
             log.info("Client connected: (" + client.getAddress() + ")");
         } catch (IOException e) {
