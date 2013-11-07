@@ -137,7 +137,7 @@ public class JamChatServer {
             case "version":  return "Prints the JamChat Server version.";
             case "debug":    return "Starts the JamChat Server in debug mode; also uses verbose features.";
             case "verbose":  return "Starts the JamChat Server in verbose mode.";
-            default: return "";
+            default:         return "";
         }
     }
 
