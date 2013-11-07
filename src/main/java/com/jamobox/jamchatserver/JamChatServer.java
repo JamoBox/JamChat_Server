@@ -36,6 +36,8 @@ public class JamChatServer {
     private static Logger log;
     private static ClientSocket listener;
     private static boolean running = false;
+    private static final String version = "0.2.1";
+    private static String[] serverArgs = {"start","debug","version", "verbose"};
 
     /**
      * Initialize the server with the essential resources. If initialization fails
@@ -68,7 +70,27 @@ public class JamChatServer {
             System.exit(-1);
         }
 
-        acceptClients();
+        if (args.length == 1) {
+            switch (args[0]) {
+                case "start":
+                    acceptClients();
+                    break;
+                case "version":
+                    System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
+                    System.exit(0);
+                case "debug":
+                    //TODO implement debug feature. fall through to verbose.
+                case "verbose":
+                    //TODO: implemt verbose option to print more (detailed) log messages.
+                    break;
+                default:
+                    printUsage();
+                    break;
+            }
+        } else {
+            printUsage();
+        }
+
     }
 
     /**
@@ -88,6 +110,42 @@ public class JamChatServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Prints the program usage text to the standard output device.
+     */
+    private static void printUsage() {
+        System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n\n", getVersion());
+        System.out.println("Usage:");
+        for (String arg: serverArgs)
+            System.out.printf("\t%s: %s\n",arg, getArgDescription(arg));
+        System.out.println();
+    }
+
+    /**
+     * Gets the description of the given program argument. All added arguments _MUST_ be also listed in the
+     * serverArgs array to maintain a consistent user feedback. If the argument is not in the array an empty
+     * string is returned in attempt to not destroy any formatting that implements this method.
+     *
+     * @param arg The argument to get the description of. Arguments _MUST_ be listed in serverArgs array.
+     * @return The description of the argument. Returns empty string if arg is not listed in serverArgs array.
+     */
+    private static String getArgDescription(String arg) {
+        switch (arg) {
+            case "start":    return "Starts the JamChat Server, begins accepting client connections.";
+            case "version":  return "Prints the JamChat Server version.";
+            case "debug":    return "Starts the JamChat Server in debug mode; also uses verbose features.";
+            case "verbose":  return "Starts the JamChat Server in verbose mode.";
+            default: return "";
+        }
+    }
+
+    /**
+     * @return The program version number.
+     */
+    public static String getVersion() {
+        return version;
     }
 
     /**
