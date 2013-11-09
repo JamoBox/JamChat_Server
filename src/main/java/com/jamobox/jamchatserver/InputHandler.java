@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver.clients;
+package main.java.com.jamobox.jamchatserver;
 
 /**
  * JamChat_Server
@@ -18,33 +18,32 @@ package main.java.com.jamobox.jamchatserver.clients;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
 /**
- * Handles client input and calls the interpreter.
+ * Handles commands given at runtime by the person running the server.
  *
  * @author Pete Wicken
  */
-public class ClientReader implements Runnable {
+public class InputHandler {
 
-    private Client client;
+    public boolean executeCommand(String command) {
+        String[] args;
 
-    public ClientReader(Client client) {
-        this.client = client;
-    }
+        if (command != null && !(command.equals(" ")))
+            args = command.split(" ");
+        else
+            return false;
 
-    public void run() {
-        try {
-            BufferedReader in = client.getClientReader();
-            String input;
-            while ((input = in.readLine()) != null) {
-                ClientInputHandler.interpret(client, input.split(" "));
+        if (args.length != 0)
+            switch (args[0]) {
+                case "stop":
+                    //TODO: finish this
+                default:
+                    System.out.printf("\"%s\" is not a valid command.\n", args[0]);
+                    JamChatServer.printUsage(JamChatServer.ArgType.RUN_ARGS);
+                    return false;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
+        return false; //temp to keep the compiler happy
+    }
 }
 

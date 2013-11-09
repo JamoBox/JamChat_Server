@@ -23,6 +23,7 @@ import main.java.com.jamobox.jamchatserver.clients.ClientReader;
 import main.java.com.jamobox.jamchatserver.clients.ClientSocket;
 
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 
@@ -37,7 +38,12 @@ public class JamChatServer {
     private static ClientSocket clientSocket;
     private static boolean running = false;
     private static final String version = "0.2.1";
-    private static String[] serverArgs = {"start","debug","version", "verbose"};
+    private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
+    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill"}; //Run time args
+
+    public enum ArgType {
+        PROG_ARGS, RUN_ARGS
+    }
 
     /**
      * Initialize the server with the essential resources. If initialization fails
@@ -49,7 +55,6 @@ public class JamChatServer {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
             clientSocket = new ClientSocket(Defaults.DEF_PORT);
-            running = true;
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,16 +69,29 @@ public class JamChatServer {
      */
     public static void main(String[] args) {
 
+        InputHandler handler = new InputHandler();
+
         if (!(initialize())) {
             running = false;
             log.severe(LogMessages.ERR_INIT);
             System.exit(-1);
         }
 
-        if (args.length == 1) {
+        if (args.length == 1)
             switch (args[0]) {
                 case "start":
-                    acceptClients();
+                    running = true;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            acceptClients();
+                        }
+                    });
+
+                    while (isRunning()) {
+                        handler.executeCommand(new Scanner(System.in).nextLine().toLowerCase());
+                    }
+
                     break;
                 case "version":
                     System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
@@ -84,12 +102,11 @@ public class JamChatServer {
                     //TODO: implement verbose option to print more (detailed) log messages.
                     break;
                 default:
-                    printUsage();
+                    printUsage(ArgType.PROG_ARGS);
                     break;
             }
-        } else {
-            printUsage();
-        }
+        else
+            printUsage(ArgType.PROG_ARGS);
 
     }
 
@@ -97,10 +114,9 @@ public class JamChatServer {
      * Listens for connecting clients. Once a client connects
      * a new thread is created to handle input the input stream from
      * the client.
-     *<p/>
-     * NOTE: This may be moved to its own thread at some point.
+     *
      * @see Client
-     * @see main.java.com.jamobox.jamchatserver.clients.ClientReader
+     * @see ClientReader
      */
     private static void acceptClients() {
         while (running) try {
@@ -113,23 +129,29 @@ public class JamChatServer {
     }
 
     /**
-     * Prints the program usage text to the standard output device.
+     * Prints the program usage text to the standard output device.The ArgType determines whether the argument
+     * is a program argument, or an argument given at runtime.
      */
-    private static void printUsage() {
+    public static void printUsage(ArgType type) {
         System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n\n", getVersion());
         System.out.println("Usage:");
-        for (String arg: serverArgs)
-            System.out.printf("\t%s: %s\n",arg, getArgDescription(arg));
-        System.out.println();
+        if (type.equals(ArgType.PROG_ARGS)) {
+            for (String arg: serverArgs)
+                System.out.printf("\t%s: %s\n",arg, getArgDescription(arg));
+            System.out.println();
+        } else {
+            for (String arg: runtimeArgs)
+                System.out.printf("\t%s: %s\n",arg, getArgDescription(arg));
+        }
     }
 
     /**
      * Gets the description of the given program argument. All added arguments _MUST_ be also listed in the
-     * serverArgs array to maintain a consistent user feedback. If the argument is not in the array an empty
+     * corresponding args array to maintain a consistent user feedback. If the argument is not in the array an empty
      * string is returned in attempt to not destroy any formatting that implements this method.
      *
-     * @param arg The argument to get the description of. Arguments _MUST_ be listed in serverArgs array.
-     * @return The description of the argument. Returns empty string if arg is not listed in serverArgs array.
+     * @param arg The argument to get the description of. Arguments _MUST_ be listed in one of the arg arrays.
+     * @return The description of the argument. Returns empty string if arg is not listed in an args array.
      */
     private static String getArgDescription(String arg) {
         switch (arg) {
@@ -137,8 +159,19 @@ public class JamChatServer {
             case "version":  return "Prints the JamChat Server version.";
             case "debug":    return "Starts the JamChat Server in debug mode; also uses verbose features.";
             case "verbose":  return "Starts the JamChat Server in verbose mode.";
+            case "stop":     return "Disconnects all clients and safely shuts down the server.";
+            case "restart":  return "Disconnects all clients and restarts the server.";
+            case "clients":  return "Prints the information of all connected clients.";
+            case "kill":     return "Kills the given client's connection. A client username must be given.";
             default:         return "";
         }
+    }
+
+    /**
+     * Safely shut down the server.
+     */
+    public static void shutdown() {
+        //TODO: Safely shut down
     }
 
     /**
@@ -154,6 +187,21 @@ public class JamChatServer {
      */
     public static Logger getLogger() {
         return log;
+    }
+
+    /**
+     * @return The run status of the server. This is dependant on setRunning being called appropriately.
+     */
+    public static boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Set whether or not the server is running.
+     * @param running
+     */
+    public static void setRunning(boolean running) {
+        JamChatServer.running = running;
     }
 }
 

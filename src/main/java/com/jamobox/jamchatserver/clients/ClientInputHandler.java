@@ -25,7 +25,7 @@ import main.java.com.jamobox.jamchatserver.JamChatServer;
  *
  * @author Pete Wicken
  */
-public class InputHandler {
+public class ClientInputHandler {
 
     //TODO: Clean this up!
     //TODO: Clients not in ClientList should have restricted commands!
