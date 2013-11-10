@@ -74,8 +74,7 @@ public class ClientInputHandler {
      * @param reason The reason for the disconnection.
      */
     private static void rejectClient(Client client, String reason) {
-        client.sendMessage(reason);
-        client.disconnect();
+        client.disconnect(reason);
     }
 
 }

@@ -110,10 +110,19 @@ public class Client {
     }
 
     /**
-     * Attempts to disconnect the client from the server.
+     * Attempts to disconnect the client from the server. Uses default disconnect message.
      */
     public void disconnect() {
+        disconnect("Disconnected by server!");
+    }
+
+    /**
+     * Attempts to disconnect the client from the server.
+     * @param reason The reason for the disconnection.
+     */
+    public void disconnect(String reason) {
         try {
+            sendMessage(reason);
             socket.close();
             ClientList.remove(this.getUsername());
         } catch (IOException e) {
