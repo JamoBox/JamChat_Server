@@ -42,6 +42,9 @@ public class JamChatServer {
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
     private static String[] runtimeArgs = {"stop", "restart", "clients", "kill"}; //Run time args
 
+    /**
+     * The type of arguments being used.
+     */
     public enum ArgType {
         PROG_ARGS, RUN_ARGS
     }
@@ -179,11 +182,26 @@ public class JamChatServer {
      * Safely shut down the server.
      */
     public static void shutdown() {
-        //TODO: Safely shut down
         System.out.printf("Server shutting down!");
         for (Client client : ClientList.getList().values())
             client.disconnect("Server shutting down!");
         running = false;
+    }
+
+    /**
+     * Safely restart the server.
+     */
+    public static void restart() {
+        System.out.printf("Server restarting!");
+        for (Client client : ClientList.getList().values())
+            client.disconnect("Server shutting down!");
+        try {
+            clientSocket.closeSocket();
+            clientSocket.openSocket();
+        } catch (IOException e) {
+            log.warning("Server did not fully restart!");
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -46,5 +46,9 @@ public class ClientSocket {
         return serverSocket.accept();
     }
 
+    public void closeSocket() throws IOException {
+        serverSocket.close();
+    }
+
 }
 
