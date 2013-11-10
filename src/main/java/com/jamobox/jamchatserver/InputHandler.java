@@ -49,7 +49,7 @@ public class InputHandler {
                     break;
                 case "kill": // This may be moved to its own method.
                     if (args.length >= 2) {
-                        Client client = null;
+                        Client client;
                         if (ClientList.getList().containsKey(args[1])) {
                             client = ClientList.getClient(args[1]);
                             if (args.length == 2) {
