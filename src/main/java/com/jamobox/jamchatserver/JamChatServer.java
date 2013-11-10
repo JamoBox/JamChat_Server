@@ -197,7 +197,7 @@ public class JamChatServer {
             client.disconnect("Server shutting down!");
         try {
             clientSocket.closeSocket();
-            clientSocket.openSocket();
+            new ClientSocket(Defaults.DEF_PORT).openSocket();
         } catch (IOException e) {
             log.warning("Server did not fully restart!");
             e.printStackTrace();
