@@ -47,31 +47,8 @@ public class InputHandler {
                 case "clients":
                     //TODO: List all connected clients.
                     break;
-                case "kill": // This may be moved to its own method.
-                    if (args.length >= 2) {
-                        Client client;
-                        if (ClientList.getList().containsKey(args[1])) {
-                            client = ClientList.getClient(args[1]);
-                            if (args.length == 2) {
-                                client.disconnect();
-                                return true;
-                            } else {
-                                String reason = "";
-                                for (int i = 2; i < args.length; i++) {
-                                    reason = reason+" "+args[i];
-                                }
-                                client.disconnect(reason);
-                                return true;
-                            }
-                        } else {
-                            System.out.printf("The client: \"%s\" is not currently connected.\n", args[1]);
-                            return false;
-                        }
-                    } else {
-                        System.out.println("Incorrect usage. \"kill <client_username>\"");
-                        return false;
-                    }
-
+                case "kill":
+                    return kill(args);
                 default:
                     System.out.printf("\"%s\" is not a valid command.\n", args[0]);
                     JamChatServer.printUsage(JamChatServer.ArgType.RUN_ARGS);
@@ -79,6 +56,32 @@ public class InputHandler {
             }
 
         return false; // This is only here to keep the compiler happy for the mean time.
+    }
+
+    private boolean kill(String[] args) {
+        if (args.length >= 2) {
+            Client client;
+            if (ClientList.getList().containsKey(args[1])) {
+                client = ClientList.getClient(args[1]);
+                if (args.length == 2) {
+                    client.disconnect();
+                    return true;
+                } else {
+                    String reason = "";
+                    for (int i = 2; i < args.length; i++) {
+                        reason = reason+" "+args[i];
+                    }
+                    client.disconnect(reason);
+                    return true;
+                }
+            } else {
+                System.out.printf("The client: \"%s\" is not currently connected.\n", args[1]);
+                return false;
+            }
+        } else {
+            System.out.println("Incorrect usage. \"kill <client_username>\"");
+            return false;
+        }
     }
 }
 
