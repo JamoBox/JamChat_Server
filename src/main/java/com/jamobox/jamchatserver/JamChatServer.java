@@ -19,6 +19,7 @@ package main.java.com.jamobox.jamchatserver;
  */
 
 import main.java.com.jamobox.jamchatserver.clients.Client;
+import main.java.com.jamobox.jamchatserver.clients.ClientList;
 import main.java.com.jamobox.jamchatserver.clients.ClientReader;
 import main.java.com.jamobox.jamchatserver.clients.ClientSocket;
 
@@ -179,6 +180,10 @@ public class JamChatServer {
      */
     public static void shutdown() {
         //TODO: Safely shut down
+        System.out.printf("Server shutting down!");
+        for (Client client : ClientList.getList().values())
+            client.disconnect("Server shutting down!");
+        running = false;
     }
 
     /**
