@@ -46,6 +46,11 @@ public class ClientSocket {
         return serverSocket.accept();
     }
 
+    /**
+     * Attempts to close the socket
+     *
+     * @throws IOException
+     */
     public void closeSocket() throws IOException {
         serverSocket.close();
     }

@@ -173,7 +173,7 @@ public class JamChatServer {
      * Safely restart the server.
      */
     public static void restart() {
-        System.out.printf("Server restarting!");
+        System.out.println("Server restarting!");
         for (Client client : ClientList.getList().values())
             client.disconnect("Server shutting down!");
         try {

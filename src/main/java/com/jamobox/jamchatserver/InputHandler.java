@@ -42,10 +42,14 @@ public class InputHandler {
                     JamChatServer.shutdown();
                     break;
                 case "restart":
-                    //TODO Restart server.
+                    JamChatServer.restart();
                     break;
                 case "clients":
-                    //TODO: List all connected clients.
+                    if (!ClientList.getList().isEmpty())
+                        for (String username: ClientList.getList().keySet())
+                            System.out.printf("%s\t%s\n\n", username, ClientList.getClient(username).getAddress());
+                    else
+                        System.out.println("No clients connected!");
                     break;
                 case "kill":
                     return kill(args);
