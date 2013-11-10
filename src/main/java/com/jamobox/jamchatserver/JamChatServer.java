@@ -73,8 +73,6 @@ public class JamChatServer {
      */
     public static void main(String[] args) {
 
-        InputHandler handler = new InputHandler();
-
         if (!(initialize())) {
             running = false;
             log.severe(LogMessages.ERR_INIT);
@@ -85,24 +83,7 @@ public class JamChatServer {
         if (args.length == 1)
             switch (args[0]) {
                 case "start":
-                    System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
-                    System.out.printf("\nStarting server...\n");
-
-                    running = true;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            acceptClients();
-                        }
-                    });
-
-                    System.out.printf("Done.\n");
-                    System.out.printf("Now accepting clients on port %d\n\n", Defaults.DEF_PORT);
-                    while (isRunning()) {
-                        System.out.print("$ ");
-                        handler.executeCommand(new Scanner(System.in).nextLine().toLowerCase());
-                    }
-
+                    start();
                     break;
                 case "version":
                     System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
@@ -197,11 +178,35 @@ public class JamChatServer {
             client.disconnect("Server shutting down!");
         try {
             clientSocket.closeSocket();
-            new ClientSocket(Defaults.DEF_PORT).openSocket();
+            start();
         } catch (IOException e) {
             log.warning("Server did not fully restart!");
             e.printStackTrace();
         }
+    }
+
+    private static void start() {
+
+        InputHandler handler = new InputHandler();
+
+        System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
+        System.out.printf("\nStarting server...\n");
+
+        running = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                acceptClients();
+            }
+        });
+
+        System.out.printf("Done.\n");
+        System.out.printf("Now accepting clients on port %d\n\n", Defaults.DEF_PORT);
+        while (isRunning()) {
+            System.out.print("$ ");
+            handler.executeCommand(new Scanner(System.in).nextLine().toLowerCase());
+        }
+
     }
 
     /**
