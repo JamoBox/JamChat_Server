@@ -88,6 +88,7 @@ public class JamChatServer {
                 case "version":
                     System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
                     System.exit(0);
+                    break; // Unreachable code; here to keep the IDE formatting happy
                 case "debug":
                     //TODO implement debug feature. fall through to verbose.
                 case "verbose":
