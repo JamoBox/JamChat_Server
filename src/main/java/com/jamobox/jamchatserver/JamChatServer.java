@@ -189,7 +189,6 @@ public class JamChatServer {
     private static void start() {
 
         InputHandler handler = new InputHandler();
-
         System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
         System.out.printf("\nStarting server...\n");
 
@@ -208,6 +207,17 @@ public class JamChatServer {
             handler.executeCommand(new Scanner(System.in).nextLine().toLowerCase());
         }
 
+    }
+
+    private void clearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                Runtime.getRuntime().exec("cls");
+            else
+                Runtime.getRuntime().exec("clear");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
