@@ -42,18 +42,18 @@ public class ClientInputHandler {
 
             if (sender.getUsername() == null)
                 if (args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME))
-                    rejectClient(sender, "Your client must set a username before sending any other requests!");
+                    sender.disconnect("Your client must set a username before sending any other requests!");
 
             switch (prefix.toUpperCase()) {
 
                 case ClientCodes.SET_USERNAME:
                     if (args.length >= 2)
                         if (ClientList.getList().containsKey(args[1]))
-                            rejectClient(sender, "A client already exists with the username "+args[1]);
+                            sender.disconnect("A client already exists with the username "+args[1]);
                         else
                             ClientList.add(args[1], sender);
                     else
-                        rejectClient(sender, "Your client did not send the correct amount of arguments!");
+                        sender.disconnect("Your client did not send the correct amount of arguments!");
                     break;
 
                 case ClientCodes.PING:
@@ -63,18 +63,6 @@ public class ClientInputHandler {
             }
         } else
             throw new NullPointerException();
-    }
-
-    /**
-     * Reject a client's connection for a given reason. This should mainly be used by
-     * authentication methods and any other methods that are called when a user first connects,
-     * however this may also be used to cleanly disconnect the client, by the client's own request.
-     *
-     * @param client The client to reject.
-     * @param reason The reason for the disconnection.
-     */
-    private static void rejectClient(Client client, String reason) {
-        client.disconnect(reason);
     }
 
 }

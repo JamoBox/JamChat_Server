@@ -117,7 +117,11 @@ public class Client {
     }
 
     /**
-     * Attempts to disconnect the client from the server.
+     * Disconnect a client's connection for a given reason. This should mainly be used by
+     * authentication methods and any other methods that are called when a user first connects,
+     * however this may also be used to cleanly disconnect the client, by the client's own request or by
+     * the server itself.
+     *
      * @param reason The reason for the disconnection.
      */
     public void disconnect(String reason) {
