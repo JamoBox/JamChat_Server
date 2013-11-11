@@ -186,6 +186,10 @@ public class JamChatServer {
         }
     }
 
+    /**
+     * Start the server. Begins listening for clients and launches the
+     * interactive terminal.
+     */
     private static void start() {
         InputHandler handler = new InputHandler();
         System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
