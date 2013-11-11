@@ -164,7 +164,7 @@ public class JamChatServer {
      * Safely shut down the server.
      */
     public static void shutdown() {
-        System.out.printf("Server shutting down!");
+        System.out.println("Server shutting down!");
         for (Client client : ClientList.getList().values())
             client.disconnect("Server shutting down!");
         running = false;
