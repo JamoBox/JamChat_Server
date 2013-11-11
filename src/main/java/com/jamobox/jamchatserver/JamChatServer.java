@@ -24,6 +24,7 @@ import main.java.com.jamobox.jamchatserver.clients.ClientReader;
 import main.java.com.jamobox.jamchatserver.clients.ClientSocket;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -61,7 +62,10 @@ public class JamChatServer {
             clientSocket = new ClientSocket(Defaults.DEF_PORT);
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            if (e instanceof BindException)
+                System.out.println("An instance of JamChat Server is already running! Check your processes!");
+            else
+                e.printStackTrace();
             return false;
         }
     }
@@ -74,9 +78,9 @@ public class JamChatServer {
     public static void main(String[] args) {
 
         if (!(initialize())) {
-            running = false;
             log.severe(LogMessages.ERR_INIT);
-            System.exit(-1);
+            shutdown();
+            System.exit(0);
         }
 
         //TODO: Move command components to separate methods.

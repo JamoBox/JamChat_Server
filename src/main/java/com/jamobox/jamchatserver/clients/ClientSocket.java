@@ -20,6 +20,7 @@ package main.java.com.jamobox.jamchatserver.clients;
  */
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -32,7 +33,7 @@ public class ClientSocket {
 
     private ServerSocket serverSocket;
 
-    public ClientSocket(int port) throws IOException {
+    public ClientSocket(int port) throws BindException, IOException {
         serverSocket = new ServerSocket(port);
     }
 
