@@ -3,3 +3,7 @@
 *.iml
 .idea/
 out/
+
+## Other ##
+
+META-INF/
