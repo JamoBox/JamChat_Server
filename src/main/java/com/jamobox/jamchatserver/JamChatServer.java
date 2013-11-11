@@ -208,17 +208,6 @@ public class JamChatServer {
 
     }
 
-    private static void clearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows"))
-                Runtime.getRuntime().exec("cls");
-            else
-                Runtime.getRuntime().exec("clear");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * @return The program version number.
      */
