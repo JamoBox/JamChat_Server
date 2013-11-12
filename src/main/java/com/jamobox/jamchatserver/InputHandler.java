@@ -37,7 +37,7 @@ public class InputHandler {
     public boolean executeCommand(String command) {
         String[] args;
 
-        if (command != null && !(command.equals(" ")))
+        if (command != null && !(command.equals(" ") || command.equals("")))
             args = command.split(" ");
         else
             return false;
@@ -67,6 +67,7 @@ public class InputHandler {
                 case "kill":
                     return kill(args);
 
+                /***************/
                 case "uptime":
                     long uptime = System.currentTimeMillis()-JamChatServer.getStartTime();
                     System.out.printf("Current up-time: %s\n", new Utilities().formatDuration(uptime));
