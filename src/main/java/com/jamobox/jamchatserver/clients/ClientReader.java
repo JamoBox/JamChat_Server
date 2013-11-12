@@ -34,6 +34,11 @@ public class ClientReader implements Runnable {
         this.client = client;
     }
 
+    /**
+     * Reads the client input and sends it to the client input interpreter.
+     *
+     * @see ClientInputHandler
+     */
     public void run() {
         try {
             BufferedReader in = client.getClientReader();

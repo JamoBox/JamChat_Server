@@ -32,7 +32,6 @@ public class ClientInputHandler {
     /**
      * Interprets the input and sorts by prefix code.
      *
-     *
      * @param args The input to interpret
      * @throws NullPointerException
      */

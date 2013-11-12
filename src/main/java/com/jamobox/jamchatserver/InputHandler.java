@@ -28,6 +28,12 @@ import main.java.com.jamobox.jamchatserver.clients.ClientList;
  */
 public class InputHandler {
 
+    /**
+     * Parses the given command and executes it if it is valid.
+     *
+     * @param command The command string
+     * @return true if command execution was successful, false if not.
+     */
     public boolean executeCommand(String command) {
         String[] args;
 

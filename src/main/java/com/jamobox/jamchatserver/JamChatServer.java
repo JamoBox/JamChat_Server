@@ -110,7 +110,7 @@ public class JamChatServer {
 
     /**
      * Listens for connecting clients. Once a client connects
-     * a new thread is created to handle input the input stream from
+     * a new thread is created to handle the input stream from
      * the client.
      *
      * @see Client
@@ -129,6 +129,8 @@ public class JamChatServer {
     /**
      * Prints the program usage text to the standard output device.The ArgType determines whether the argument
      * is a program argument, or an argument given at runtime.
+     *
+     * @param type The type of argument
      */
     public static void printUsage(ArgType type) {
         System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n\n", getVersion());
@@ -226,12 +228,16 @@ public class JamChatServer {
         return version;
     }
 
+    /**
+     * @return The time(ms) the server started.
+     */
     public static long getStartTime() {
         return startTime;
     }
 
     /**
      * Get the server logger.
+     *
      * @return Logger com.jamobox.jamchatserver
      */
     public static Logger getLogger() {

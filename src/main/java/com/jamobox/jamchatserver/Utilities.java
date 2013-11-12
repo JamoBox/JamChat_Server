@@ -20,6 +20,11 @@ import java.util.concurrent.TimeUnit;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
+/**
+ * Provides useful methods that do not belong in their own class.
+ *
+ * @author Pete Wicken
+ */
 public class Utilities {
 
     /**
