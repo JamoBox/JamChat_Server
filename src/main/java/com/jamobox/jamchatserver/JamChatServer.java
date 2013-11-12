@@ -251,13 +251,5 @@ public class JamChatServer {
         return running;
     }
 
-    /**
-     * Set whether or not the server is running.
-     *
-     * @param running True for running, false to stop server.
-     */
-    public static void setRunning(boolean running) {
-        JamChatServer.running = running;
-    }
 }
 
