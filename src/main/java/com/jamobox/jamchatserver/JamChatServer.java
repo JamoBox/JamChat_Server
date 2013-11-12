@@ -36,12 +36,13 @@ import java.util.logging.Logger;
  */
 public class JamChatServer {
 
+    private static long startTime;
     private static Logger log;
     private static ClientSocket clientSocket;
     private static boolean running = false;
     private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
-    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill"}; //Run time args
+    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime"}; //Run time args
 
     /**
      * The type of arguments being used.
@@ -160,6 +161,7 @@ public class JamChatServer {
             case "restart":  return "Disconnects all clients and restarts the server.";
             case "clients":  return "Prints the information of all connected clients.";
             case "kill":     return "Kills the given client's connection. A client username must be given.";
+            case "uptime":   return "Prints the server uptime to the terminal.";
             default:         return "";
         }
     }
@@ -200,6 +202,7 @@ public class JamChatServer {
         System.out.printf("\nStarting server...\n");
 
         running = true;
+        startTime = System.currentTimeMillis();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -221,6 +224,10 @@ public class JamChatServer {
      */
     public static String getVersion() {
         return version;
+    }
+
+    public static long getStartTime() {
+        return startTime;
     }
 
     /**

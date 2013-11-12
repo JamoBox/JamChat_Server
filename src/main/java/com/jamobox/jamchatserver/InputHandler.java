@@ -38,12 +38,17 @@ public class InputHandler {
 
         if (args.length != 0)
             switch (args[0]) {
+                /***************/
                 case "stop":
                     JamChatServer.shutdown();
                     break;
+
+                /***************/
                 case "restart":
                     JamChatServer.restart();
                     break;
+
+                /***************/
                 case "clients":
                     if (!ClientList.getList().isEmpty())
                         for (String username: ClientList.getList().keySet())
@@ -51,8 +56,17 @@ public class InputHandler {
                     else
                         System.out.println("No clients connected!");
                     break;
+
+                /***************/
                 case "kill":
                     return kill(args);
+
+                case "uptime":
+                    long uptime = System.currentTimeMillis()-JamChatServer.getStartTime();
+                    System.out.printf("Current up-time: %s\n", new Utilities().formatDuration(uptime));
+                    return true;
+
+                /***************/
                 default:
                     System.out.printf("\"%s\" is not a valid command.\n", args[0]);
                     JamChatServer.printUsage(JamChatServer.ArgType.RUN_ARGS);
