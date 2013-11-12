@@ -62,6 +62,17 @@ public class InputHandler {
         return false; // This is only here to keep the compiler happy for the mean time.
     }
 
+    /**
+     * Kills a client's connecting using the disconnect method.
+     * Performs argument checks on each parameter; args[1] being the
+     * client that is being killed, args[2] being the first word of the kill reason.
+     * If only two args are given (kill(1) and client_name(2)) then the client is killed
+     * with disconnect()'s default message. If there are more arguments then a string is built
+     * by concatenating those arguments and the killed is killed with that string as a reason.
+     *
+     * @param args Kill <ClientUsername> [Reason]
+     * @return True if successful, false if not.
+     */
     private boolean kill(String[] args) {
         if (args.length >= 2) {
             Client client;
@@ -71,6 +82,7 @@ public class InputHandler {
                     client.disconnect();
                     return true;
                 } else {
+                    /* Build a string from the given arguments */
                     String reason = "";
                     for (int i = 2; i < args.length; i++) {
                         reason = reason+" "+args[i];
