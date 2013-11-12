@@ -47,12 +47,12 @@ public class InputHandler {
                 /***************/
                 case "stop":
                     JamChatServer.shutdown();
-                    break;
+                    return true;
 
                 /***************/
                 case "restart":
                     JamChatServer.restart();
-                    break;
+                    return true;
 
                 /***************/
                 case "clients":
@@ -61,7 +61,7 @@ public class InputHandler {
                             System.out.printf("%s\t%s\n\n", username, ClientList.getClient(username).getAddress());
                     else
                         System.out.println("No clients connected!");
-                    break;
+                    return true;
 
                 /***************/
                 case "kill":
@@ -78,8 +78,9 @@ public class InputHandler {
                     JamChatServer.printUsage(JamChatServer.ArgType.RUN_ARGS);
                     return false;
             }
+        else
+            return false;
 
-        return false; // This is only here to keep the compiler happy for the mean time.
     }
 
     /**
