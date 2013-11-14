@@ -32,15 +32,15 @@ public class ClientInputHandler {
     /**
      * Interprets the input and sorts by prefix code.
      *
+     * @param sender The client that sent the command
      * @param args The input to interpret
-     * @throws NullPointerException
      */
-    public static void interpret(Client sender, String[] args) throws NullPointerException {
+    public static void interpret(Client sender, String[] args) {
         if (args != null) {
             String prefix = args[0];
 
             if (sender.getUsername() == null)
-                if (args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME))
+                if (!args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME))
                     sender.disconnect("Your client must set a username before sending any other requests!");
 
             switch (prefix.toUpperCase()) {
