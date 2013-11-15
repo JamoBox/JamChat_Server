@@ -18,9 +18,9 @@ package main.java.com.jamobox.jamchatserver;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
+//TODO: Make this cleaner
 /**
  * Contains string constants for the server logger.
- * TODO: Make this cleaner
  *
  * @author Pete Wicken
  */
