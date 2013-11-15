@@ -46,6 +46,7 @@ public class ClientReader implements Runnable {
             while ((input = in.readLine()) != null) {
                 ClientInputHandler.interpret(client, input.split(" "));
             }
+            in.close(); // Close the reader when we are done with it.
         } catch (IOException e) {
             e.printStackTrace();
         }
