@@ -30,7 +30,11 @@ import java.util.logging.Logger;
 
 
 /**
- * Main server class. Initializes and runs the server.
+ * Main server class. This class contains many of the essential server methods,
+ * such as ways of shutting it down, restarting it and running it. All of the server
+ * commands are also documented here; any commands being added to the server should be
+ * declared in either the serverArgs array or the runtimeArgs array depending on what the
+ * command type is. Command documentation goes into the `getArgDescription` method.
  *
  * @author Pete Wicken
  */
@@ -45,7 +49,12 @@ public class JamChatServer {
     private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime"}; //Run time args
 
     /**
-     * The type of arguments being used.
+     * The type of arguments being used. Arguments used are either program
+     * arguments (arguments given when launching the server [e.g. java - jar jamchatserver start]
+     * where 'start' is argument 0), or runtime arguments (arguments given by the user running
+     * the server).
+     *
+     * @see InputHandler
      */
     public enum ArgType {
         PROG_ARGS, RUN_ARGS
@@ -72,7 +81,8 @@ public class JamChatServer {
     }
 
     /**
-     * Main server run method.
+     * Main server run method. Parses the program argument given and deals
+     * with it accordingly.
      *
      * @param args The given program arguments
      */
@@ -169,7 +179,10 @@ public class JamChatServer {
     }
 
     /**
-     * Safely shut down the server.
+     * Safely shut down the server. This will cleanly disconnect all connected
+     * clients with a shutdown message before setting the `running` variable to false.
+     * This means the client while loop finishes and the main thread is allowed to safely
+     * and cleanly finish with exit code 0.
      */
     public static void shutdown() {
         System.out.println("Server shutting down!");
@@ -179,7 +192,10 @@ public class JamChatServer {
     }
 
     /**
-     * Safely restart the server.
+     * Safely restart the server. Cleanly disconnects all connected clients
+     * before closing the server socket. Once all clients are disconnected and
+     * the socket is closed, the `run()` method is called to start the server back
+     * up again.
      */
     public static void restart() {
         System.out.println("Server restarting!");
@@ -196,7 +212,8 @@ public class JamChatServer {
 
     /**
      * Start the server. Begins listening for clients and launches the
-     * interactive terminal.
+     * interactive terminal. Each connecting client will be given its own thread
+     * to listen for any output from the client.
      */
     private static void start() {
         InputHandler handler = new InputHandler();
