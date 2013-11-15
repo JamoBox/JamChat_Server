@@ -22,17 +22,27 @@ import main.java.com.jamobox.jamchatserver.clients.Client;
 import main.java.com.jamobox.jamchatserver.clients.ClientList;
 
 /**
- * Handles commands given at runtime by the person running the server.
+ * Handles input given at runtime by the person running the server.
+ * executeCommand is the 'point of interest' method of this class, other
+ * methods in the class are simply used as either utilities or breakdowns
+ * of individual parts for readability.
  *
  * @author Pete Wicken
  */
 public class InputHandler {
 
     /**
-     * Parses the given command and executes it if it is valid.
+     * Handles the execution of runtime commands given by the user who
+     * is running the server at the terminal. The 'commands' accepted here
+     * should also be listed in the runtimeArgs array in JamChatServer and
+     * in the argument description method in the same class. The first argument
+     * in the given string is considered as the command name. The rest of the arguments
+     * (if any) are then parsed individually by the command's case statement and processed
+     * there. Empty strings ("" and " ") as well as null strings will simply return false.
      *
      * @param command The command string
      * @return true if command execution was successful, false if not.
+     * @see JamChatServer
      */
     public boolean executeCommand(String command) {
         String[] args;
