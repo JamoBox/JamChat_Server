@@ -88,12 +88,6 @@ public class JamChatServer {
      */
     public static void main(String[] args) {
 
-        if (!(initialize())) {
-            log.severe(LogMessages.ERR_INIT);
-            shutdown();
-            System.exit(0);
-        }
-
         //TODO: Move command components to separate methods.
         if (args.length == 1)
             switch (args[0]) {
@@ -216,6 +210,13 @@ public class JamChatServer {
      * to listen for any output from the client.
      */
     private static void start() {
+
+        if (!(initialize())) {
+            log.severe(LogMessages.ERR_INIT);
+            shutdown();
+            System.exit(0);
+        }
+
         InputHandler handler = new InputHandler();
         System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
         System.out.printf("\nStarting server...\n");
