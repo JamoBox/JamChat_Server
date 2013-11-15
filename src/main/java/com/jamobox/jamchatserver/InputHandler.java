@@ -44,6 +44,7 @@ public class InputHandler {
 
         if (args.length != 0)
             switch (args[0]) {
+
                 /***************/
                 case "stop":
                     JamChatServer.shutdown();
