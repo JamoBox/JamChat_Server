@@ -19,12 +19,18 @@ package main.java.com.jamobox.jamchatserver;
  */
 
 /**
- * Declares the default constants for the project
+ * Declares the default constants for the project. This may include
+ * most things found in the configuration files. This interface should
+ * be used only as something to fall back on. Configuration should always
+ * be consulted first.
  *
  * @author Pete Wicken
  */
 public abstract interface Defaults {
 
+    /**
+     * The default port to run the server on.
+     */
     public static final int DEF_PORT = 23239;
 
 }
