@@ -124,7 +124,7 @@ public class JamChatServer {
         while (running) try {
             Client client = new Client(clientSocket.openSocket());
             new Thread(new ClientReader(client)).start();
-            log.info("Client connected: (" + client.getAddress() + ")");
+            log.info(String.format("Client connected: (%s)", client.getAddress()));
         } catch (IOException e) {
             e.printStackTrace();
         }
