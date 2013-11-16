@@ -30,4 +30,3 @@ public abstract interface ClientCodes {
     public static final String PING = "PING";
 
 }
-
