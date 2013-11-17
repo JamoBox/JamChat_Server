@@ -31,6 +31,8 @@ import main.java.com.jamobox.jamchatserver.clients.ClientList;
  */
 public class InputHandler {
 
+    private ClientList clientList = ClientList.getInstance();
+
     /**
      * Handles the execution of runtime commands given by the user who
      * is running the server at the terminal. The 'commands' accepted here
@@ -67,9 +69,9 @@ public class InputHandler {
 
                 /***************/
                 case "clients":
-                    if (!ClientList.getList().isEmpty())
-                        for (String username: ClientList.getList().keySet())
-                            System.out.printf("%s\t%s\n\n", username, ClientList.getClient(username).getAddress());
+                    if (!clientList.isEmpty())
+                        for (String username: clientList.keySet())
+                            System.out.printf("%s\t%s\n\n", username, clientList.get(username).getAddress());
                     else
                         System.out.println("No clients connected!");
                     return true;
@@ -109,8 +111,8 @@ public class InputHandler {
     private boolean kill(String[] args) {
         if (args.length >= 2) {
             Client client;
-            if (ClientList.getList().containsKey(args[1])) {
-                client = ClientList.getClient(args[1]);
+            if (clientList.containsKey(args[1])) {
+                client = clientList.get(args[1]);
                 if (args.length == 2) {
                     client.disconnect();
                     return true;
