@@ -141,7 +141,7 @@ public class JamChatServer {
     }
 
     /**
-     * Prints the program usage text to the standard output device.The ArgType determines whether the argument
+     * Prints the program usage text to the standard output device. The ArgType determines whether the argument
      * is a program argument, or an argument given at runtime.
      *
      * @param type The type of argument
