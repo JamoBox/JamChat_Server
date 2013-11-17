@@ -39,7 +39,6 @@ public class ClientList extends HashMap<String, Client> {
      * constructor is executed.
      *
      * @return ClientList instance
-     * @see {@link "http://en.wikipedia.org/wiki/Singleton_pattern"}
      */
     public static ClientList getInstance() {
         if (instance == null)
