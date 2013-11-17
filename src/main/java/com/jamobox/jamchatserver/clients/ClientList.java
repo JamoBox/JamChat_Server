@@ -26,44 +26,29 @@ import java.util.HashMap;
  *
  * @author Pete Wicken
  */
-public class ClientList {
+public class ClientList extends HashMap<String, Client> {
 
-    private static HashMap<String, Client> clients = new HashMap<>();
+    public static volatile ClientList instance = null;
 
     /**
-     * Add a client to the list of connected clients
+     * Provides a singleton structure for the ClientList. If
+     * an instance of the ClientList already exists, then that instance
+     * will be returned, to prevent new instances of the list being made.
+     * This has also been optimized for concurrency and is therefore thread-safe;
+     * it uses double-checked locking so a reference isn't returned before the default
+     * constructor is executed.
      *
-     * @param username Unique client key
-     * @param client The client to add to the list
+     * @return ClientList instance
+     * @see {@link "http://en.wikipedia.org/wiki/Singleton_pattern"}
      */
-    public static void add(String username, Client client) {
-        clients.put(username, client);
-    }
+    public static ClientList getInstance() {
+        if (instance == null)
+            synchronized (ClientList.class) {
+                if (instance == null)
+                    instance = new ClientList();
+            }
 
-    /**
-     * Remove a client from the list
-     *
-     * @param username the client to remove
-     */
-    public static void remove(String username) {
-        clients.remove(username);
-    }
-
-    /**
-     * Get the client in the list that has the given username
-     *
-     * @param username The username of the client to return
-     * @return The client with a matching username
-     */
-    public static Client getClient(String username) {
-        return clients.get(username);
-    }
-
-    /**
-     * @return The client list
-     */
-    public static HashMap<String, Client> getList() {
-        return clients;
+        return instance;
     }
 
 }
