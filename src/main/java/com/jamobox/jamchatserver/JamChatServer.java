@@ -50,7 +50,7 @@ public class JamChatServer {
 
     /**
      * The type of arguments being used. Arguments used are either program
-     * arguments (arguments given when launching the server [e.g. java - jar jamchatserver start]
+     * arguments (arguments given when launching the server [e.g. java -jar jamchatserver start]
      * where 'start' is argument 0), or runtime arguments (arguments given by the user running
      * the server).
      *
