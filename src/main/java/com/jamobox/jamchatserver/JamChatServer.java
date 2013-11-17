@@ -43,6 +43,7 @@ public class JamChatServer {
     private static long startTime;
     private static Logger log;
     private static ClientSocket clientSocket;
+    private static ClientList clientList;
     private static boolean running = false;
     private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
@@ -70,6 +71,7 @@ public class JamChatServer {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
             clientSocket = new ClientSocket(Defaults.DEF_PORT);
+            clientList = ClientList.getInstance();
             return true;
         } catch (IOException e) {
             if (e instanceof BindException)
@@ -190,7 +192,7 @@ public class JamChatServer {
      */
     public static void shutdown() {
         System.out.println("Server shutting down!");
-        for (Client client : ClientList.getList().values())
+        for (Client client : clientList.values())
             client.disconnect("Server shutting down!");
         running = false;
     }
@@ -203,7 +205,7 @@ public class JamChatServer {
      */
     public static void restart() {
         System.out.println("Server restarting!");
-        for (Client client : ClientList.getList().values())
+        for (Client client : clientList.values())
             client.disconnect("Server shutting down!");
         try {
             clientSocket.closeSocket();
