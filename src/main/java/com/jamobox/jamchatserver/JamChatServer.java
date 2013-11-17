@@ -91,18 +91,28 @@ public class JamChatServer {
         //TODO: Move command components to separate methods.
         if (args.length == 1)
             switch (args[0]) {
+
+                /***************/
                 case "start":
                     start();
                     break;
+
+                /***************/
                 case "version":
                     System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
                     System.exit(0);
                     break; // Unreachable code; here to keep the IDE formatting happy
+
+                /***************/
                 case "debug":
                     //TODO implement debug feature. fall through to verbose.
+
+                /***************/
                 case "verbose":
                     //TODO: implement verbose option to print more (detailed) log messages.
                     break;
+
+                /***************/
                 default:
                     printUsage(ArgType.PROG_ARGS);
                     break;
