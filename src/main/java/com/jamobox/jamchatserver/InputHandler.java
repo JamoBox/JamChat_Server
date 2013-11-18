@@ -85,16 +85,7 @@ public class InputHandler {
 
                 /***************/
                 case "uptime":
-                    PeriodFormatter uptimeFormat = new PeriodFormatterBuilder()
-                            .appendDays().appendSuffix(" day, ", " days, ")
-                            .appendHours().appendSuffix(" hour, ", " hours, ")
-                            .appendMinutes().appendSuffix(" minute and ", " minutes and ")
-                            .appendSeconds().appendSuffix(" second.", " seconds.")
-                            .toFormatter();
-
-                    System.out.printf("Up-time: %s\n",
-                        uptimeFormat.print(new Period(System.currentTimeMillis()-JamChatServer.getStartTime())));
-                    return true;
+                    return uptime();
 
                 /***************/
                 case "broadcast":
@@ -147,6 +138,19 @@ public class InputHandler {
             System.out.println("Incorrect usage. \"kill <client_username>\"");
             return false;
         }
+    }
+
+    private boolean uptime() {
+        PeriodFormatter uptimeFormat = new PeriodFormatterBuilder()
+                .appendDays().appendSuffix(" day, ", " days, ")
+                .appendHours().appendSuffix(" hour, ", " hours, ")
+                .appendMinutes().appendSuffix(" minute and ", " minutes and ")
+                .appendSeconds().appendSuffix(" second.", " seconds.")
+                .toFormatter();
+
+        System.out.printf("Up-time: %s\n",
+                uptimeFormat.print(new Period(System.currentTimeMillis()-JamChatServer.getStartTime())));
+        return true;
     }
 
     private boolean broadcast(String[] args) {
