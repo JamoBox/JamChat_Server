@@ -20,6 +20,9 @@ package main.java.com.jamobox.jamchatserver;
 
 import main.java.com.jamobox.jamchatserver.clients.Client;
 import main.java.com.jamobox.jamchatserver.clients.ClientList;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 /**
  * Handles input given at runtime by the person running the server.
@@ -82,8 +85,15 @@ public class InputHandler {
 
                 /***************/
                 case "uptime":
-                    long uptime = System.currentTimeMillis()-JamChatServer.getStartTime();
-                    System.out.printf("Current up-time: %s\n", new Utilities().formatDuration(uptime));
+                    PeriodFormatter uptimeFormat = new PeriodFormatterBuilder()
+                            .appendDays().appendSuffix(" day, ", " days, ")
+                            .appendHours().appendSuffix(" hour, ", " hours, ")
+                            .appendMinutes().appendSuffix(" minute and ", " minutes and ")
+                            .appendSeconds().appendSuffix(" second.", " seconds.")
+                            .toFormatter();
+
+                    System.out.printf("Up-time: %s\n",
+                        uptimeFormat.print(new Period(System.currentTimeMillis()-JamChatServer.getStartTime())));
                     return true;
 
                 /***************/
