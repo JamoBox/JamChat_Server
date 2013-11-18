@@ -140,6 +140,15 @@ public class InputHandler {
         }
     }
 
+    /**
+     * Uses the Joda Time API to calculate and print the current system uptime.
+     * The amount of each denomination is only displayed if at least one of its
+     * kind exists. For example, if the server has only been up for 2 hours, the amount
+     * of days that it has been up for will not be shown, as the values of days in the
+     * uptime is zero.
+     *
+     * @return True; This method is always successful.
+     */
     private boolean uptime() {
         PeriodFormatter uptimeFormat = new PeriodFormatterBuilder()
                 .appendDays().appendSuffix(" day, ", " days, ")
@@ -153,6 +162,15 @@ public class InputHandler {
         return true;
     }
 
+    /**
+     * Broadcasts a message to all connected clients, and relays the message to
+     * the server terminal too for logging purposes. Arguments [1] and onwards
+     * are concatenated to provide the string message that should be broadcasted and
+     * displayed.
+     *
+     * @param args Broadcast <message>
+     * @return True if successful, false if not.
+     */
     private boolean broadcast(String[] args) {
         if (args.length >= 2) {
             /* Create the message from the args */
