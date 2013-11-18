@@ -26,7 +26,12 @@ import java.util.HashMap;
  *
  * @author Pete Wicken
  */
-public class ClientList extends HashMap<String, Client> {
+public final class ClientList extends HashMap<String, Client> {
+
+    private ClientList() {
+        if (instance != null)
+            throw new IllegalArgumentException("Already instantiated");
+    }
 
     public static volatile ClientList instance = null;
 
