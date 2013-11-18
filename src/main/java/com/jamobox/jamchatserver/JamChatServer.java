@@ -47,7 +47,7 @@ public class JamChatServer {
     private static boolean running = false;
     private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
-    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime"}; //Run time args
+    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime", "broadcast"}; //Run time args
 
     /**
      * The type of arguments being used. Arguments used are either program
@@ -171,16 +171,17 @@ public class JamChatServer {
      */
     private static String getArgDescription(String arg) {
         switch (arg) {
-            case "start":    return "Starts the JamChat Server, begins accepting client connections.";
-            case "version":  return "Prints the JamChat Server version.";
-            case "debug":    return "Starts the JamChat Server in debug mode; also uses verbose features.";
-            case "verbose":  return "Starts the JamChat Server in verbose mode.";
-            case "stop":     return "Disconnects all clients and safely shuts down the server.";
-            case "restart":  return "Disconnects all clients and restarts the server.";
-            case "clients":  return "Prints the information of all connected clients.";
-            case "kill":     return "Kills the given client's connection. A client username must be given.";
-            case "uptime":   return "Prints the server uptime to the terminal.";
-            default:         return "";
+            case "start":       return "Starts the JamChat Server, begins accepting client connections.";
+            case "version":     return "Prints the JamChat Server version.";
+            case "debug":       return "Starts the JamChat Server in debug mode; also uses verbose features.";
+            case "verbose":     return "Starts the JamChat Server in verbose mode.";
+            case "stop":        return "Disconnects all clients and safely shuts down the server.";
+            case "restart":     return "Disconnects all clients and restarts the server.";
+            case "clients":     return "Prints the information of all connected clients.";
+            case "kill":        return "Kills the given client's connection. A client username must be given.";
+            case "uptime":      return "Prints the server uptime to the terminal.";
+            case "broadcast":   return "Broadcasts a message to all connected clients.";
+            default:            return "";
         }
     }
 

@@ -87,6 +87,10 @@ public class InputHandler {
                     return true;
 
                 /***************/
+                case "broadcast":
+                    return broadcast(args);
+
+                /***************/
                 default:
                     System.out.printf("\"%s\" is not a valid command.\n", args[0]);
                     JamChatServer.printUsage(JamChatServer.ArgType.RUN_ARGS);
@@ -134,4 +138,22 @@ public class InputHandler {
             return false;
         }
     }
+
+    private boolean broadcast(String[] args) {
+        if (args.length >= 2) {
+            /* Create the message from the args */
+            String message = "";
+            for (int i = 1; i < args.length; i++)
+                message = message.concat(String.format("%s ", args[i]));
+            /* Send the message to all online clients */
+            for (Client client : clientList.values())
+                client.sendMessage("BROADCAST "+message);
+            System.out.printf("[Server Announcement]: %s\n", message);
+            return true;
+        } else {
+            System.out.println("Incorrect usage. \"broadcast <message>\"");
+            return false;
+        }
+    }
+
 }
