@@ -142,19 +142,18 @@ public class InputHandler {
 
     /**
      * Uses the Joda Time API to calculate and print the current system uptime.
-     * The amount of each denomination is only displayed if at least one of its
-     * kind exists. For example, if the server has only been up for 2 hours, the amount
-     * of days that it has been up for will not be shown, as the values of days in the
-     * uptime is zero.
+     * The uptime is printed in the format of `days, HH:mm:ss`.
      *
      * @return True; This method is always successful.
      */
     private boolean uptime() {
         PeriodFormatter uptimeFormat = new PeriodFormatterBuilder()
+                .printZeroIfSupported()
                 .appendDays().appendSuffix(" day, ", " days, ")
-                .appendHours().appendSuffix(" hour, ", " hours, ")
-                .appendMinutes().appendSuffix(" minute and ", " minutes and ")
-                .appendSeconds().appendSuffix(" second.", " seconds.")
+                .minimumPrintedDigits(2)
+                .appendHours().appendSuffix(":")
+                .appendMinutes().appendSuffix(":")
+                .appendSeconds()
                 .toFormatter();
 
         System.out.printf("Up-time: %s\n",
