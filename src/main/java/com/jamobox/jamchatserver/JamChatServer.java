@@ -43,14 +43,15 @@ public class JamChatServer {
     private static long startTime;
     private static Logger log;
     private static ClientSocket clientSocket;
+    private static ClientList clientList;
     private static boolean running = false;
     private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
-    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime"}; //Run time args
+    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime", "broadcast"}; //Run time args
 
     /**
      * The type of arguments being used. Arguments used are either program
-     * arguments (arguments given when launching the server [e.g. java - jar jamchatserver start]
+     * arguments (arguments given when launching the server [e.g. java -jar jamchatserver start]
      * where 'start' is argument 0), or runtime arguments (arguments given by the user running
      * the server).
      *
@@ -70,6 +71,7 @@ public class JamChatServer {
         log = Logger.getLogger("com.jamobox.jamchatserver");
         try {
             clientSocket = new ClientSocket(Defaults.DEF_PORT);
+            clientList = ClientList.getInstance();
             return true;
         } catch (IOException e) {
             if (e instanceof BindException)
@@ -91,18 +93,28 @@ public class JamChatServer {
         //TODO: Move command components to separate methods.
         if (args.length == 1)
             switch (args[0]) {
+
+                /***************/
                 case "start":
                     start();
                     break;
+
+                /***************/
                 case "version":
                     System.out.printf("JamChat Server version %s. Copyright (C) 2013 Pete Wicken.\n", getVersion());
                     System.exit(0);
                     break; // Unreachable code; here to keep the IDE formatting happy
+
+                /***************/
                 case "debug":
                     //TODO implement debug feature. fall through to verbose.
+
+                /***************/
                 case "verbose":
                     //TODO: implement verbose option to print more (detailed) log messages.
                     break;
+
+                /***************/
                 default:
                     printUsage(ArgType.PROG_ARGS);
                     break;
@@ -131,7 +143,7 @@ public class JamChatServer {
     }
 
     /**
-     * Prints the program usage text to the standard output device.The ArgType determines whether the argument
+     * Prints the program usage text to the standard output device. The ArgType determines whether the argument
      * is a program argument, or an argument given at runtime.
      *
      * @param type The type of argument
@@ -159,16 +171,17 @@ public class JamChatServer {
      */
     private static String getArgDescription(String arg) {
         switch (arg) {
-            case "start":    return "Starts the JamChat Server, begins accepting client connections.";
-            case "version":  return "Prints the JamChat Server version.";
-            case "debug":    return "Starts the JamChat Server in debug mode; also uses verbose features.";
-            case "verbose":  return "Starts the JamChat Server in verbose mode.";
-            case "stop":     return "Disconnects all clients and safely shuts down the server.";
-            case "restart":  return "Disconnects all clients and restarts the server.";
-            case "clients":  return "Prints the information of all connected clients.";
-            case "kill":     return "Kills the given client's connection. A client username must be given.";
-            case "uptime":   return "Prints the server uptime to the terminal.";
-            default:         return "";
+            case "start":       return "Starts the JamChat Server, begins accepting client connections.";
+            case "version":     return "Prints the JamChat Server version.";
+            case "debug":       return "Starts the JamChat Server in debug mode; also uses verbose features.";
+            case "verbose":     return "Starts the JamChat Server in verbose mode.";
+            case "stop":        return "Disconnects all clients and safely shuts down the server.";
+            case "restart":     return "Disconnects all clients and restarts the server.";
+            case "clients":     return "Prints the information of all connected clients.";
+            case "kill":        return "Kills the given client's connection. A client username must be given.";
+            case "uptime":      return "Prints the server uptime to the terminal.";
+            case "broadcast":   return "Broadcasts a message to all connected clients.";
+            default:            return "";
         }
     }
 
@@ -180,7 +193,7 @@ public class JamChatServer {
      */
     public static void shutdown() {
         System.out.println("Server shutting down!");
-        for (Client client : ClientList.getList().values())
+        for (Client client : clientList.values())
             client.disconnect("Server shutting down!");
         running = false;
     }
@@ -193,7 +206,7 @@ public class JamChatServer {
      */
     public static void restart() {
         System.out.println("Server restarting!");
-        for (Client client : ClientList.getList().values())
+        for (Client client : clientList.values())
             client.disconnect("Server shutting down!");
         try {
             clientSocket.closeSocket();

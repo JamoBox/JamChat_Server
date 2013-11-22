@@ -128,7 +128,7 @@ public class Client {
         try {
             sendMessage(reason);
             socket.close();
-            ClientList.remove(this.getUsername());
+            ClientList.getInstance().remove(this.getUsername());
         } catch (IOException e) {
             e.printStackTrace();
             JamChatServer.getLogger().severe(LogMessages.ERR_CLIENT_DIS+getUsername());

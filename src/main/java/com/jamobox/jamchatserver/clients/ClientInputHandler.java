@@ -47,10 +47,10 @@ public class ClientInputHandler {
 
                 case ClientCodes.SET_USERNAME:
                     if (args.length >= 2)
-                        if (ClientList.getList().containsKey(args[1]))
+                        if (ClientList.getInstance().containsKey(args[1]))
                             sender.disconnect("A client already exists with the username "+args[1]);
                         else
-                            ClientList.add(args[1], sender);
+                            ClientList.getInstance().put(args[1], sender);
                     else
                         sender.disconnect("Your client did not send the correct amount of arguments!");
                     break;

@@ -20,6 +20,9 @@ package main.java.com.jamobox.jamchatserver;
 
 import main.java.com.jamobox.jamchatserver.clients.Client;
 import main.java.com.jamobox.jamchatserver.clients.ClientList;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 /**
  * Handles input given at runtime by the person running the server.
@@ -30,6 +33,8 @@ import main.java.com.jamobox.jamchatserver.clients.ClientList;
  * @author Pete Wicken
  */
 public class InputHandler {
+
+    private ClientList clientList = ClientList.getInstance();
 
     /**
      * Handles the execution of runtime commands given by the user who
@@ -67,9 +72,9 @@ public class InputHandler {
 
                 /***************/
                 case "clients":
-                    if (!ClientList.getList().isEmpty())
-                        for (String username: ClientList.getList().keySet())
-                            System.out.printf("%s\t%s\n\n", username, ClientList.getClient(username).getAddress());
+                    if (!clientList.isEmpty())
+                        for (String username: clientList.keySet())
+                            System.out.printf("%s\t%s\n\n", username, clientList.get(username).getAddress());
                     else
                         System.out.println("No clients connected!");
                     return true;
@@ -80,9 +85,11 @@ public class InputHandler {
 
                 /***************/
                 case "uptime":
-                    long uptime = System.currentTimeMillis()-JamChatServer.getStartTime();
-                    System.out.printf("Current up-time: %s\n", new Utilities().formatDuration(uptime));
-                    return true;
+                    return uptime();
+
+                /***************/
+                case "broadcast":
+                    return broadcast(args);
 
                 /***************/
                 default:
@@ -109,8 +116,8 @@ public class InputHandler {
     private boolean kill(String[] args) {
         if (args.length >= 2) {
             Client client;
-            if (ClientList.getList().containsKey(args[1])) {
-                client = ClientList.getClient(args[1]);
+            if (clientList.containsKey(args[1])) {
+                client = clientList.get(args[1]);
                 if (args.length == 2) {
                     client.disconnect();
                     return true;
@@ -132,4 +139,52 @@ public class InputHandler {
             return false;
         }
     }
+
+    /**
+     * Uses the Joda Time API to calculate and print the current system uptime.
+     * The uptime is printed in the format of `days, HH:mm:ss`.
+     *
+     * @return True; This method is always successful.
+     */
+    private boolean uptime() {
+        PeriodFormatter uptimeFormat = new PeriodFormatterBuilder()
+                .printZeroIfSupported()
+                .appendDays().appendSuffix(" day, ", " days, ")
+                .minimumPrintedDigits(2)
+                .appendHours().appendSuffix(":")
+                .appendMinutes().appendSuffix(":")
+                .appendSeconds()
+                .toFormatter();
+
+        System.out.printf("Up-time: %s\n",
+                uptimeFormat.print(new Period(System.currentTimeMillis()-JamChatServer.getStartTime())));
+        return true;
+    }
+
+    /**
+     * Broadcasts a message to all connected clients, and relays the message to
+     * the server terminal too for logging purposes. Arguments [1] and onwards
+     * are concatenated to provide the string message that should be broadcasted and
+     * displayed.
+     *
+     * @param args Broadcast <message>
+     * @return True if successful, false if not.
+     */
+    private boolean broadcast(String[] args) {
+        if (args.length >= 2) {
+            /* Create the message from the args */
+            String message = "";
+            for (int i = 1; i < args.length; i++)
+                message = message.concat(String.format("%s ", args[i]));
+            /* Send the message to all online clients */
+            for (Client client : clientList.values())
+                client.sendMessage("BROADCAST "+message);
+            System.out.printf("[Server Announcement]: %s\n", message);
+            return true;
+        } else {
+            System.out.println("Incorrect usage. \"broadcast <message>\"");
+            return false;
+        }
+    }
+
 }
