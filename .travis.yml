@@ -8,3 +8,7 @@ matrix:
   fast_finish: true
   allow_failures:
     - jdk: oraclejdk8
+
+notifications:
+  - email: false
+  
