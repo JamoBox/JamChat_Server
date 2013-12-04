@@ -59,6 +59,10 @@ public class ClientInputHandler {
                     sender.sendMessage("PONG");
                     JamChatServer.getLogger().info(sender.getUsername()+" sent a ping to the server.");
                     break;
+
+                case ClientCodes.DISCONNECT:
+                    sender.disconnect();
+                    break;
             }
         } else
             throw new NullPointerException();

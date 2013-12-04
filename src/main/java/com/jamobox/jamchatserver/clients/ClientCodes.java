@@ -28,5 +28,6 @@ public abstract interface ClientCodes {
 
     public static final String SET_USERNAME = "USERNAME";
     public static final String PING = "PING";
+    public static final String DISCONNECT = "DISCONNECT";
 
 }
