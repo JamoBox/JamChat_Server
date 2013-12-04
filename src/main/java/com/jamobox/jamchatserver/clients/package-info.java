@@ -8,6 +8,6 @@
  * The request codes of the JamChat_Core/JamChat_Client MUST always be
  * in sync with these codes.
  *
- * @see main.java.com.jamobox.jamchatserver.clients.ClientCodes
+ * @see com.jamobox.jamchatserver.clients.ClientCodes
  */
-package main.java.com.jamobox.jamchatserver.clients;
+package com.jamobox.jamchatserver.clients;

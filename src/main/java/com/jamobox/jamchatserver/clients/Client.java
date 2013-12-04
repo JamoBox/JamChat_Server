@@ -1,7 +1,7 @@
-package main.java.com.jamobox.jamchatserver.clients;
+package com.jamobox.jamchatserver.clients;
 
-import main.java.com.jamobox.jamchatserver.JamChatServer;
-import main.java.com.jamobox.jamchatserver.LogMessages;
+import com.jamobox.jamchatserver.JamChatServer;
+import com.jamobox.jamchatserver.LogMessages;
 
 import java.io.BufferedReader;
 import java.io.IOException;

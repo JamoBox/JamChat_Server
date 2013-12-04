@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver;
+package com.jamobox.jamchatserver;
 
 /**
  * JamChat_Server
@@ -18,8 +18,8 @@ package main.java.com.jamobox.jamchatserver;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-import main.java.com.jamobox.jamchatserver.clients.Client;
-import main.java.com.jamobox.jamchatserver.clients.ClientList;
+import com.jamobox.jamchatserver.clients.Client;
+import com.jamobox.jamchatserver.clients.ClientList;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;

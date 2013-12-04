@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver.clients;
+package com.jamobox.jamchatserver.clients;
 
 /**
  * JamChat_Server
@@ -18,7 +18,7 @@ package main.java.com.jamobox.jamchatserver.clients;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-import main.java.com.jamobox.jamchatserver.JamChatServer;
+import com.jamobox.jamchatserver.JamChatServer;
 
 /**
  * Handles client input

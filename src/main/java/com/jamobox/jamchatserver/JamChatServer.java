@@ -1,4 +1,4 @@
-package main.java.com.jamobox.jamchatserver;
+package com.jamobox.jamchatserver;
 
 /**
  * JamChat_Server
@@ -18,10 +18,10 @@ package main.java.com.jamobox.jamchatserver;
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
 
-import main.java.com.jamobox.jamchatserver.clients.Client;
-import main.java.com.jamobox.jamchatserver.clients.ClientList;
-import main.java.com.jamobox.jamchatserver.clients.ClientReader;
-import main.java.com.jamobox.jamchatserver.clients.ClientSocket;
+import com.jamobox.jamchatserver.clients.Client;
+import com.jamobox.jamchatserver.clients.ClientList;
+import com.jamobox.jamchatserver.clients.ClientReader;
+import com.jamobox.jamchatserver.clients.ClientSocket;
 
 import java.io.IOException;
 import java.net.BindException;
