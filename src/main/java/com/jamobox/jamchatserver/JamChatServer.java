@@ -133,7 +133,6 @@ public class JamChatServer {
      * @see ClientReader
      */
     private static void acceptClients() {
-        System.out.println("test");
         while (running) try {
             Client client = new Client(clientSocket.openSocket());
             new Thread(new ClientReader(client)).start();
