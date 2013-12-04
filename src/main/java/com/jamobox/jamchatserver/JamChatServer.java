@@ -47,7 +47,7 @@ public class JamChatServer {
     private static boolean running = false;
     private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
-    private static String[] runtimeArgs = {"stop", "restart", "clients", "kill", "uptime", "broadcast"}; //Run time args
+    private static String[] runtimeArgs = {"help","stop", "restart", "clients", "kill", "uptime", "broadcast"}; //Run time args
 
     /**
      * The type of arguments being used. Arguments used are either program
@@ -171,6 +171,7 @@ public class JamChatServer {
      */
     private static String getArgDescription(String arg) {
         switch (arg) {
+            case "help":        return "Displays a list of commands.";
             case "start":       return "Starts the JamChat Server, begins accepting client connections.";
             case "version":     return "Prints the JamChat Server version.";
             case "debug":       return "Starts the JamChat Server in debug mode; also uses verbose features.";

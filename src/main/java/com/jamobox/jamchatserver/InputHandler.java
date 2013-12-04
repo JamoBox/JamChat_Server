@@ -92,9 +92,13 @@ public class InputHandler {
                     return broadcast(args);
 
                 /***************/
-                default:
-                    System.out.printf("\"%s\" is not a valid command.\n", args[0]);
+                case "help":
                     JamChatServer.printUsage(JamChatServer.ArgType.RUN_ARGS);
+                    return true;
+
+                /***************/
+                default:
+                    System.out.printf("\"%s\": command unknown.\n Type \"help\" for a list of commands.\n", args[0]);
                     return false;
             }
         else
