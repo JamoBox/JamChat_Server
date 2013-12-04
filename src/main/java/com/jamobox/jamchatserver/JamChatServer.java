@@ -133,6 +133,7 @@ public class JamChatServer {
      * @see ClientReader
      */
     private static void acceptClients() {
+        System.out.println("test");
         while (running) try {
             Client client = new Client(clientSocket.openSocket());
             new Thread(new ClientReader(client)).start();
@@ -238,12 +239,10 @@ public class JamChatServer {
         running = true;
         startTime = System.currentTimeMillis();
         new Thread(new Runnable() {
-            @Override
             public void run() {
                 acceptClients();
             }
-        });
-
+        }).start();
         System.out.printf("Done.\n");
         System.out.printf("Now accepting clients on port %d\n\n", Defaults.DEF_PORT);
         while (isRunning()) {
