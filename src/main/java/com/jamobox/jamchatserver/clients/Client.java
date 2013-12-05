@@ -101,7 +101,7 @@ public class Client {
     public void sendMessage(String message) {
         try {
             PrintWriter out = getClientWriter();
-            out.write(message);
+            out.write(String.format("%s\n", message));
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
