@@ -246,7 +246,7 @@ public class JamChatServer {
         System.out.printf("Now accepting clients on port %d\n\n", Defaults.DEF_PORT);
         while (isRunning()) {
             System.out.print("$ ");
-            handler.executeCommand(new Scanner(System.in).nextLine().toLowerCase());
+            handler.executeCommand(new Scanner(System.in).nextLine());
         }
 
     }

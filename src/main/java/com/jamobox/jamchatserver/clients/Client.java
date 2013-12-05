@@ -37,6 +37,8 @@ import java.net.Socket;
  */
 public class Client {
 
+    private PrintWriter writer;
+    private BufferedReader reader;
     private Socket socket;
     private String username;
     private InetAddress address;
@@ -81,7 +83,10 @@ public class Client {
      * @throws IOException
      */
     public BufferedReader getClientReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        if (reader == null)
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        return reader;
     }
 
     /**
@@ -90,7 +95,10 @@ public class Client {
      * @throws IOException
      */
     public PrintWriter getClientWriter() throws IOException {
-        return new PrintWriter(socket.getOutputStream());
+        if (writer == null)
+            writer = new PrintWriter(socket.getOutputStream());
+
+        return writer;
     }
 
     /**
