@@ -26,7 +26,6 @@ import com.jamobox.jamchatserver.clients.ClientSocket;
 import java.io.IOException;
 import java.net.BindException;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 
 /**
@@ -40,12 +39,13 @@ import java.util.logging.Logger;
  */
 public class JamChatServer {
 
+    private static final String version = "0.2.1";
     private static long startTime;
-    private static Logger log;
+    private static boolean doLog;
+    private static boolean running = false;
+    private static ServerLogger log;
     private static ClientSocket clientSocket;
     private static ClientList clientList;
-    private static boolean running = false;
-    private static final String version = "0.2.1";
     private static String[] serverArgs = {"start","debug","version", "verbose"}; //Program args
     private static String[] runtimeArgs = {"help","stop", "restart", "clients", "kill", "uptime", "broadcast"}; //Run time args
 
@@ -68,7 +68,7 @@ public class JamChatServer {
      * @return true if successful, false if not.
      */
     private static boolean initialize() {
-        log = Logger.getLogger("com.jamobox.jamchatserver");
+        log = new ServerLogger(doLog);
         try {
             clientSocket = new ClientSocket(Defaults.DEF_PORT);
             clientList = ClientList.getInstance();
@@ -96,6 +96,7 @@ public class JamChatServer {
 
                 /***************/
                 case "start":
+                    doLog = false;
                     start();
                     break;
 
@@ -111,7 +112,7 @@ public class JamChatServer {
 
                 /***************/
                 case "verbose":
-                    //TODO: implement verbose option to print more (detailed) log messages.
+                    doLog = true;
                     break;
 
                 /***************/
@@ -248,7 +249,7 @@ public class JamChatServer {
             System.out.print("$ ");
             handler.executeCommand(new Scanner(System.in).nextLine());
         }
-
+        System.exit(0); //FIXME: This is a bad way to close the program. Program should wait for processes to finish.
     }
 
     /**
@@ -270,7 +271,7 @@ public class JamChatServer {
      *
      * @return Logger com.jamobox.jamchatserver
      */
-    public static Logger getLogger() {
+    public static ServerLogger getLogger() {
         return log;
     }
 
