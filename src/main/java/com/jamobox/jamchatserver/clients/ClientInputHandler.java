@@ -20,8 +20,6 @@ package com.jamobox.jamchatserver.clients;
 
 import com.jamobox.jamchatserver.JamChatServer;
 
-import static com.jamobox.jamchatserver.clients.Client.ClientLevel.*;
-
 /**
  * Handles client input
  *
@@ -47,7 +45,7 @@ public class ClientInputHandler {
         if (args != null) {
             String prefix = args[0];
 
-            if (sender.getClientLevel().equals(UNSIGNED))
+            if (sender.getClientLevel().equals(Client.ClientLevel.UNSIGNED))
                 if (!args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME)) {
                     sender.sendMessage("Your client must set a username before sending any other requests!");
                     return false;
@@ -58,11 +56,11 @@ public class ClientInputHandler {
                 case ClientCodes.SET_USERNAME:
                     if (args.length >= 2) {
                         if (ClientList.getInstance().containsKey(args[1])) {
-                            sender.disconnect("A client already exists with the username "+args[1]);
+                            sender.sendMessage("A client already exists with the username "+args[1]);
                             return false;
                         } else {
                             ClientList.getInstance().put(args[1], sender);
-                            sender.setClientLevel(SIGNED);
+                            sender.setClientLevel(Client.ClientLevel.SIGNED);
                             return true;
                         }
                     } else {
