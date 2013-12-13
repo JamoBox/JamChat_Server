@@ -20,6 +20,8 @@ package com.jamobox.jamchatserver.clients;
 
 import com.jamobox.jamchatserver.JamChatServer;
 
+import static com.jamobox.jamchatserver.clients.Client.ClientLevel.*;
+
 /**
  * Handles client input
  *
@@ -29,17 +31,23 @@ public class ClientInputHandler {
 
     //TODO: Clean this up!
     /**
-     * Interprets the input and sorts by prefix code.
+     * Interprets the input and sorts by prefix code. Performs a check on the
+     * ClientLevel before executing any commands to ensure they are signed
+     * clients (logged in). Some commands may be used by unsigned clients in
+     * order to maintain fundamental functionality, for example unsigned clients may
+     * use the "USERNAME" command so they may sign themselves under that name and become
+     * classified as a signed client for that session.
      *
      * @param sender The client that sent the command
      * @param args The input to interpret
      * @return True if the event was successful, false if not.
+     * @see Client.ClientLevel
      */
     public static boolean interpret(Client sender, String[] args) {
         if (args != null) {
             String prefix = args[0];
 
-            if (sender.getClientLevel().equals(Client.ClientLevel.UNSIGNED))
+            if (sender.getClientLevel().equals(UNSIGNED))
                 if (!args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME)) {
                     sender.sendMessage("Your client must set a username before sending any other requests!");
                     return false;
@@ -54,7 +62,7 @@ public class ClientInputHandler {
                             return false;
                         } else {
                             ClientList.getInstance().put(args[1], sender);
-                            sender.setClientLevel(Client.ClientLevel.SIGNED);
+                            sender.setClientLevel(SIGNED);
                             return true;
                         }
                     } else {
