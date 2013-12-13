@@ -33,6 +33,7 @@ public class ClientInputHandler {
      *
      * @param sender The client that sent the command
      * @param args The input to interpret
+     * @return True if the event was successful, false if not.
      */
     public static boolean interpret(Client sender, String[] args) {
         if (args != null) {
