@@ -42,6 +42,11 @@ public class Client {
     private Socket socket;
     private String username;
     private InetAddress address;
+    private ClientLevel level = ClientLevel.UNSIGNED;
+
+    public enum ClientLevel {
+        UNSIGNED, SIGNED, ADMIN
+    }
 
     /**
      * Creates a Client object setting the client's socket
@@ -76,6 +81,15 @@ public class Client {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public void setClientLevel(ClientLevel level) {
+        this.level = level;
+    }
+
+    public ClientLevel getClientLevel() {
+        return level;
+    }
+
 
     /**
      * Get the client's input stream.
