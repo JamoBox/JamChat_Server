@@ -34,37 +34,49 @@ public class ClientInputHandler {
      * @param sender The client that sent the command
      * @param args The input to interpret
      */
-    public static void interpret(Client sender, String[] args) {
+    public static boolean interpret(Client sender, String[] args) {
         if (args != null) {
             String prefix = args[0];
 
-            if (sender.getUsername() == null)
-                if (!args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME))
-                    sender.disconnect("Your client must set a username before sending any other requests!");
+            if (sender.getClientLevel().equals(Client.ClientLevel.UNSIGNED))
+                if (!args[0].equalsIgnoreCase(ClientCodes.SET_USERNAME)) {
+                    sender.sendMessage("Your client must set a username before sending any other requests!");
+                    return false;
+                }
 
             switch (prefix.toUpperCase()) {
 
                 case ClientCodes.SET_USERNAME:
-                    if (args.length >= 2)
-                        if (ClientList.getInstance().containsKey(args[1]))
+                    if (args.length >= 2) {
+                        if (ClientList.getInstance().containsKey(args[1])) {
                             sender.disconnect("A client already exists with the username "+args[1]);
-                        else
+                            return false;
+                        } else {
                             ClientList.getInstance().put(args[1], sender);
-                    else
+                            sender.setClientLevel(Client.ClientLevel.SIGNED);
+                            return true;
+                        }
+                    } else {
                         sender.disconnect("Your client did not send the correct amount of arguments!");
-                    break;
+                        return false;
+                    }
 
                 case ClientCodes.PING:
                     sender.sendMessage("PONG");
                     JamChatServer.getLogger().info(sender.getUsername()+" sent a ping to the server.");
-                    break;
+                    return true;
 
                 case ClientCodes.DISCONNECT:
                     sender.disconnect();
-                    break;
+                    return true;
+
+                default:
+                    sender.sendMessage("Unknown command!");
+                    return false;
             }
-        } else
+        } else {
             throw new NullPointerException();
+        }
     }
 
 }
