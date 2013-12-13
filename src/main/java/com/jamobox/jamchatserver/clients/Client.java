@@ -90,7 +90,6 @@ public class Client {
         return level;
     }
 
-
     /**
      * Get the client's input stream.
      * @return BufferedReader object of client input stream.
