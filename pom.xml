@@ -9,6 +9,28 @@
     <name>JamChat Server</name>
     <version>0.2.1</version>
 
+
+    <developers>
+        <developer>
+            <id>JamoBox</id>
+            <name>Pete Wicken</name>
+            <email>petewicken@gmail.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/gpl.html</url>
+        </license>
+    </licenses>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <dependencies>
 
         <dependency>
