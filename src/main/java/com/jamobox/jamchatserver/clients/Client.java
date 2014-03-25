@@ -1,16 +1,4 @@
-package com.jamobox.jamchatserver.clients;
-
-import com.jamobox.jamchatserver.JamChatServer;
-import com.jamobox.jamchatserver.LogMessages;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
-
-/**
+/*
  * JamChat_Server
  * Copyright (C) 2013 Pete Wicken
  * <p/>
@@ -27,6 +15,18 @@ import java.net.Socket;
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
+
+package com.jamobox.jamchatserver.clients;
+
+import com.jamobox.jamchatserver.JamChatServer;
+import com.jamobox.jamchatserver.LogMessages;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 
 /**
  * This class defines what a client is. ALL clients MUST be an instance of this

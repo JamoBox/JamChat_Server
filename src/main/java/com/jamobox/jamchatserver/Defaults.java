@@ -1,6 +1,4 @@
-package com.jamobox.jamchatserver;
-
-/**
+/*
  * JamChat_Server
  * Copyright (C) 2013 Pete Wicken
  * <p/>
@@ -17,6 +15,8 @@ package com.jamobox.jamchatserver;
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
+
+package com.jamobox.jamchatserver;
 
 /**
  * Declares the default constants for the project. This may include

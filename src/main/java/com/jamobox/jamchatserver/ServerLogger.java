@@ -1,8 +1,4 @@
-package com.jamobox.jamchatserver;
-
-import java.util.logging.Logger;
-
-/**
+/*
  * JamChat_Server
  * Copyright (C) 2013 Pete Wicken
  * <p/>
@@ -19,6 +15,10 @@ import java.util.logging.Logger;
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see [http://www.gnu.org/licenses/].
  */
+
+package com.jamobox.jamchatserver;
+
+import java.util.logging.Logger;
 
 public class ServerLogger {
 
